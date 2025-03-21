@@ -139,4 +139,20 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")
 
+    try:
+        price_ratio = data['Price ratio']
+        # Create Plotly figure
+        fig2 = px.line(
+            price_ratio,
+            x="Date",
+            y="Price ratio"
+        )
+        
+        # Show chart in Streamlit
+        st.plotly_chart(fig2)
+        
+    except Exception as e:
+        st.error(f"🚨 Error analysing price ratio data: {e}")
+    
+
 st.divider()

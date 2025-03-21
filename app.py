@@ -83,7 +83,7 @@ if st.session_state.pairs:
         data['Price ratio'] = data[ticker1]/data[ticker2]
         data["Pair value"] = data[ticker1]*units1 - data[ticker2]*units2
 
-        returns = data[ticker1, ticker2].pct_change().dropna()
+        returns = data[[ticker1, ticker2]].pct_change().dropna()
         cm_returns = (returns + 1).cumprod() - 1
         
         # Display DataFrame

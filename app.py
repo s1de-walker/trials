@@ -113,6 +113,28 @@ if st.session_state.pairs:
         
         col1.metric(f"{ticker1}", f"${last_close_ticker1:.2f}", f"{pct_change_ticker1:.2f}%")
         col2.metric(f"{ticker2}", f"${last_close_ticker2:.2f}", f"{pct_change_ticker2:.2f}%")
+
+        # Reshape data for Plotly
+        cm_returns_melted = cm_returns.reset_index().melt(id_vars="Date", var_name="Stock", value_name="Cumulative Return")
+        
+        # Define custom colors
+        color_map = {
+            cm_returns.columns[0]: "#fb580d",  # Fiery Orange
+            cm_returns.columns[1]: "#5cc8e2",  # Electric Blue
+        }
+        
+        # Create Plotly figure
+        fig = px.line(
+            cm_returns_melted,
+            x="Date",
+            y="Cumulative Return",
+            color="Stock",
+            title="Cumulative Returns",
+            color_discrete_map=color_map
+        )
+        
+        # Show chart in Streamlit
+        st.plotly_chart(fig)
         
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")

@@ -160,6 +160,9 @@ if st.session_state.pairs:
             title=f"Price ratio ({ticker1} / {ticker2})"
         )
 
+        # Update the line color to a custom color (e.g., '#FF5733' for a shade of orange)
+        fig2.update_traces(line=dict(color='white'))
+
         # Add a horizontal line for the mean
         fig2.add_shape(
             type="line",

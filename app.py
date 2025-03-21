@@ -82,25 +82,24 @@ if st.session_state.pairs:
         data = data[[ticker1,ticker2]]
         data['Price ratio'] = data[ticker1]/data[ticker2]
         data["Pair value"] = data[ticker1]*units1 - data[ticker2]*units2
-
-        returns = data[[ticker1, ticker2]].pct_change().dropna()
-        cm_returns = (returns + 1).cumprod() - 1
         
         # Display DataFrame
         st.write("### Equation Value Time Series Table")
         st.dataframe(data, use_container_width=True)
-
-        cm_returns.columns = data.columns  # This preserves the order returned by yfinance
-    
-        # Plot cumulative returns
-        st.subheader("Market Summary")
-        #-------------------------------------------------------------------------
-        # Fetch the last traded price (close) for each stock
         
 
 
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")
 
+    try:
+        returns = data[[ticker1, ticker2]].pct_change().dropna()
+        cm_returns = (returns + 1).cumprod() - 1
+        cm_returns.columns = data.columns  # This preserves the order returned by yfinance
+    
+        # Plot cumulative returns
+        st.subheader("Market Summary")
+    except Exception as e:
+        st.error(f"🚨 Error fetching historical data: {e}")
 
 st.divider()

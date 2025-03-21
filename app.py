@@ -140,7 +140,7 @@ if st.session_state.pairs:
         st.error(f"🚨 Error analysing data: {e}")
 
     try:
-        price_ratio = data['Price ratio']
+        price_ratio = data[['Price ratio']]
         # Create Plotly figure
         fig2 = px.line(
             price_ratio,

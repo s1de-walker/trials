@@ -71,7 +71,7 @@ with st.form("pairs_form"):
         except Exception as e:
             st.error(f"🚨 Error fetching data: {e}")
 
-
+st.divider()
 
 # Historical Time Series Calculation
 if st.session_state.pairs:

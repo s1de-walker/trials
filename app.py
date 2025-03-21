@@ -57,7 +57,7 @@ with st.form("pairs_form"):
     
     submit = st.form_submit_button("Confirm Pair")
 
-    if submit and stock1 and stock2:
+    if submit and ticker1 and ticker2:
         # Fetch latest stock prices from Yahoo Finance
         try:
             data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
@@ -82,26 +82,12 @@ if st.session_state.pairs:
 
     try:
         # Fetch historical data
-        df1 = yf.download(stock1, start=start_date, end=end_date)['Close']
-        df2 = yf.download(stock2, start=start_date, end=end_date)['Close']
-        st.write(df1*units1)
-        st.write(df2.tail()*units2)
-        # Compute the equation time series while keeping it as a DataFrame
-        equation_df = (units1 * df1[['Close']]) - (units2 * df2[['Close']])
+        data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
         
         # Display DataFrame
         st.write("### Equation Value Time Series Table")
-        st.dataframe(equation_df, use_container_width=True)
+        st.dataframe(data, use_container_width=True)
 
-        # Plot the time series
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=equation_df.index, y=equation_df["Equation Value"], mode='lines', name='Equation Value'))
-        fig.update_layout(title="Equation Value Over Time",
-                          xaxis_title="Date",
-                          yaxis_title="Value",
-                          template="plotly_dark")
-
-        st.plotly_chart(fig, use_container_width=True)
 
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")

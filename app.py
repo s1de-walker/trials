@@ -12,7 +12,6 @@ import plotly.express as px
 
 # Sidebar instructions-----------------------------------------------------------------------------
 
-
 # Title
 st.title("Pairs @ Risk")
 st.write("")
@@ -35,12 +34,14 @@ end_date = col_date2.date_input("End Date", datetime.strptime(default_end, '%Y-%
 
 # Ensure start_date is before end_date
 if start_date >= end_date:
-    st.error("Start Date must be before End Date!")
+    st.error("🚨 Start Date must be before End Date!")
 
 # Calculate month difference
 month_diff = (end_date.year - start_date.year) * 12 + (end_date.month - start_date.month)
 st.write(f"Selected period: **{month_diff} months**")
 
+st.write("")
+st.write("Enter the pair details")
 
 # Form for user input
 with st.form("pairs_form"):

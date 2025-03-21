@@ -147,12 +147,32 @@ if st.session_state.pairs:
             'Date': price_ratio.index,
             'Price ratio': price_ratio.values.flatten()
         })
+
+        # Calculate the mean of the Price ratio
+        mean_price_ratio = price_ratio_df['Price ratio'].mean()
+
+        
         # Create Plotly figure
         fig2 = px.line(
             price_ratio_df,
             x="Date",
             y="Price ratio",
             title=f"Price ratio ({ticker1} / {ticker2})"
+        )
+
+        # Add a horizontal line for the mean
+        fig2.add_shape(
+            type="line",
+            x0=price_ratio_df['Date'].min(),
+            x1=price_ratio_df['Date'].max(),
+            y0=mean_price_ratio,
+            y1=mean_price_ratio,
+            line=dict(
+                color="Red",
+                width=2,
+                dash="dot"
+            ),
+            name="Mean"
         )
         
         # Show chart in Streamlit

@@ -95,10 +95,10 @@ if st.session_state.pairs:
     try:
         returns = data[[ticker1, ticker2]].pct_change().dropna()
         cm_returns = (returns + 1).cumprod() - 1
-        cm_returns.columns = data.columns  # This preserves the order returned by yfinance
     
         # Plot cumulative returns
         st.subheader("Market Summary")
+        
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")
 

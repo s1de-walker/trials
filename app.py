@@ -80,6 +80,7 @@ if st.session_state.pairs:
     try:
         # Fetch historical data and create required data
         data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
+        data = data[[ticker1,ticker2]]
         data['Price ratio'] = data[ticker1]/data[ticker2]
         data["Pair value"] = data[ticker1]*units1 - data[ticker2]*units2
         

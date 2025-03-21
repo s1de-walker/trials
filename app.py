@@ -100,6 +100,6 @@ if st.session_state.pairs:
         # Plot cumulative returns
         st.subheader("Market Summary")
     except Exception as e:
-        st.error(f"🚨 Error fetching historical data: {e}")
+        st.error(f"🚨 Error analysing data: {e}")
 
 st.divider()

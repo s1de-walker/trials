@@ -83,7 +83,7 @@ with st.form("pairs_form"):
                 "Equation Value": round(equation_value, 2)
             })
         except Exception as e:
-            st.error(f"Error fetching data: {e}")
+            st.error(f"🚨 Error fetching data: {e}")
 
 # Display stored pairs
 if st.session_state.pairs:
@@ -120,4 +120,4 @@ if st.session_state.pairs:
         st.plotly_chart(fig, use_container_width=True)
 
     except Exception as e:
-        st.error(f"Error fetching historical data: {e}")
+        st.error(f"🚨 Error fetching historical data: {e}")

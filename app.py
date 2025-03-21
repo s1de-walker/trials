@@ -175,6 +175,17 @@ if st.session_state.pairs:
             ),
             name="Mean"
         )
+
+        # Add an annotation for the mean value
+        fig2.add_annotation(
+            x=price_ratio_df['Date'].max(),
+            y=mean_price_ratio,
+            text=f"Mean: {mean_price_ratio:.2f}",
+            showarrow=True,
+            arrowhead=2,
+            ax=0,
+            ay=-40
+        )
         
         # Show chart in Streamlit
         st.plotly_chart(fig2)

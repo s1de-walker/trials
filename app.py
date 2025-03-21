@@ -65,10 +65,8 @@ with st.form("pairs_form"):
             st.session_state.pairs.append({
                 "Units 1": units1,
                 "Stock/ETF 1": ticker1,
-                "Price 1": round(price1, 2),
                 "Units 2": units2,
                 "Stock/ETF 2": ticker2,
-                "Price 2": round(price2, 2),
             })
         except Exception as e:
             st.error(f"🚨 Error fetching data: {e}")

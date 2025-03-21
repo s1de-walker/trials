@@ -141,9 +141,15 @@ if st.session_state.pairs:
 
     try:
         price_ratio = data[['Price ratio']]
+
+        # Create a DataFrame for plotting
+        price_ratio_df = pd.DataFrame({
+            'Date': price_ratio.index,
+            'Price ratio': price_ratio.values
+        })
         # Create Plotly figure
         fig2 = px.line(
-            price_ratio,
+            price_ratio_df,
             x="Date",
             y="Price ratio"
         )

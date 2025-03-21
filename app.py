@@ -41,46 +41,39 @@ month_diff = (end_date.year - start_date.year) * 12 + (end_date.month - start_da
 st.write(f"Selected period: **{month_diff} months**")
 
 st.write("")
-st.write("Enter the pair details")
+st.write("Enter the pair details:")
 
 # Form for user input
 with st.form("pairs_form"):
     col1, col2, col3, col4, col5 = st.columns([2, 3, 1, 2, 3])
     
     units1 = col1.number_input("Units", min_value=1, step=1, key="units1")
-    stock1 = col2.text_input("Stock/ETF 1", key="stock1").upper()
+    ticker1 = col2.text_input("Stock/ETF 1", key="ticker1").upper()
     with col3:
         st.write("")
         st.markdown("<p style='text-align: center; font-size: 24px;'>_</p>", unsafe_allow_html=True)
     units2 = col4.number_input("Units", min_value=1, step=1, key="units2")
-    stock2 = col5.text_input("Stock/ETF 2", key="stock2").upper()
+    ticker2 = col5.text_input("Stock/ETF 2", key="ticker2").upper()
     
-    submit = st.form_submit_button("Add Pair")
+    submit = st.form_submit_button("Confirm Pair")
 
     if submit and stock1 and stock2:
         # Fetch latest stock prices from Yahoo Finance
         try:
-            price1 = yf.Ticker(stock1).history(period='1d')['Close'].iloc[-1]
-            price2 = yf.Ticker(stock2).history(period='1d')['Close'].iloc[-1]
-            equation_value = (units1 * price1) - (units2 * price2)
+            data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
             
             st.session_state.pairs.append({
                 "Units 1": units1,
-                "Stock/ETF 1": stock1,
+                "Stock/ETF 1": ticker1,
                 "Price 1": round(price1, 2),
                 "Units 2": units2,
-                "Stock/ETF 2": stock2,
+                "Stock/ETF 2": ticker2,
                 "Price 2": round(price2, 2),
-                "Equation Value": round(equation_value, 2)
             })
         except Exception as e:
             st.error(f"🚨 Error fetching data: {e}")
 
-# Display stored pairs
-if st.session_state.pairs:
-    st.write("### Stored Pairs")
-    df = pd.DataFrame(st.session_state.pairs)
-    st.dataframe(df, use_container_width=True)
+
 
 
 # Historical Time Series Calculation

@@ -57,7 +57,7 @@ with st.form("pairs_form"):
     
     submit = st.form_submit_button("Confirm Pair")
 
-    if submit and ticker1 not None and ticker2 not None:
+    if submit and ticker1 is not None and ticker2 is not None:
         # Fetch latest stock prices from Yahoo Finance
         try:
             data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]

@@ -84,11 +84,9 @@ if st.session_state.pairs:
         data["Pair value"] = data[ticker1]*units1 - data[ticker2]*units2
         
         # Display DataFrame
-        st.write("### Equation Value Time Series Table")
-        st.dataframe(data, use_container_width=True)
+        #st.write("### Equation Value Time Series Table")
+        #st.dataframe(data, use_container_width=True)
         
-
-
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")
 

@@ -10,16 +10,6 @@ import plotly.express as px
 
 #Libraries--------------------------------------------------------------------------------------
 
-# Sidebar Instructions
-st.sidebar.write("This Risk App helps users assess potential losses in a pair over a selected period for informed decision-making.")
-st.sidebar.header("📖   How to Use Inputs")
-st.sidebar.write("")
-st.sidebar.write("- **Analysis Period:** If your average holding period is 5 days, you may want to analyze how prices change over 5-day intervals.")
-st.sidebar.write("")
-st.sidebar.write("- **Percentile:** Defines the risk threshold—e.g., the VaR 95th percentile represents a 2-sigma event and 95% of the data points are above that value.")
-st.sidebar.write("")
-st.sidebar.write("- **Monte Carlo Simulations:** More simulations improve accuracy but take longer to compute.")
-
 # Sidebar instructions-----------------------------------------------------------------------------
 
 

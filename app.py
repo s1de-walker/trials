@@ -78,9 +78,11 @@ with st.form("pairs_form"):
 if st.session_state.pairs:
 
     try:
-        # Fetch historical data
+        # Fetch historical data and create required data
         data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
         data["Eqn value"] = data[ticker1]*units1 - data[ticker2]*units2
+        data['Price ratio'] = data[ticker1]/data[ticker2]
+        
         
         # Display DataFrame
         st.write("### Equation Value Time Series Table")

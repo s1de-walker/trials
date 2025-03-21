@@ -151,7 +151,8 @@ if st.session_state.pairs:
         fig2 = px.line(
             price_ratio_df,
             x="Date",
-            y="Price ratio"
+            y="Price ratio",
+            title=f"Price ratio ({ticker1} / {ticker2})"
         )
         
         # Show chart in Streamlit

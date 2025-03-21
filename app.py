@@ -80,7 +80,7 @@ if st.session_state.pairs:
     try:
         # Fetch historical data
         data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
-        data["Eqn value"] = data[ticker1] - data[ticker2]
+        data["Eqn value"] = data[ticker1]*units1 - data[ticker2]*units2
         
         # Display DataFrame
         st.write("### Equation Value Time Series Table")

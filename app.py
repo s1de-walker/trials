@@ -76,7 +76,6 @@ with st.form("pairs_form"):
 
 # Historical Time Series Calculation
 if st.session_state.pairs:
-    st.write("### Equation Value Time Series")
 
     try:
         # Fetch historical data

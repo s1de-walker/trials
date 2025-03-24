@@ -3,7 +3,6 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
 import plotly.express as px
-import plotly.graph_objects as go
 
 # Title
 st.title("Pairs @ Risk")
@@ -149,16 +148,15 @@ if st.session_state.pairs:
         upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)
 
         # Create Plotly figure
-        fig2 = go.Figure()
+        fig2 = px.line(
+            price_ratio_df,
+            x="Date",
+            y="Price ratio",
+            title=f"Price ratio ({ticker1} / {ticker2})"
+        )
 
-        # Add segments to the plot
-        below_lower = price_ratio_df[price_ratio_df['Price ratio'] < lower_percentile]
-        between = price_ratio_df[(price_ratio_df['Price ratio'] >= lower_percentile) & (price_ratio_df['Price ratio'] <= upper_percentile)]
-        above_upper = price_ratio_df[price_ratio_df['Price ratio'] > upper_percentile]
-
-        fig2.add_trace(go.Scatter(x=below_lower['Date'], y=below_lower['Price ratio'], mode='lines', name='Below Lower Percentile', line=dict(color='Blue')))
-        fig2.add_trace(go.Scatter(x=between['Date'], y=between['Price ratio'], mode='lines', name='Between Percentiles', line=dict(color='#E7E6E6')))
-        fig2.add_trace(go.Scatter(x=above_upper['Date'], y=above_upper['Price ratio'], mode='lines', name='Above Upper Percentile', line=dict(color='Green')))
+        # Update the line color to a custom color (e.g., '#FF5733' for a shade of orange)
+        fig2.update_traces(line=dict(color='#E7E6E6'))
 
         # Add a horizontal line for the mean
         fig2.add_shape(

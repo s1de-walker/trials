@@ -61,7 +61,7 @@ st.divider()
 # Input End------------------------------------
 
 
-# Market Summary
+# Fetching data
 # ------------------------------------
 # Historical Time Series Calculation
 if st.session_state.pairs:
@@ -78,12 +78,15 @@ if st.session_state.pairs:
         
     returns = data[[ticker1, ticker2]].pct_change().dropna()
     cm_returns = (returns + 1).cumprod() - 1
-    
+
+    # Market Summary
+    # ------------------------------------
     with st.expander(f"Market Summary"):
         col1, col2 = st.columns(2)
         col1.metric(f"{ticker1}", f"${data[ticker1].iloc[-1]:.2f}", f"{returns[ticker1].iloc[-1] * 100:.2f}%")
         col2.metric(f"{ticker2}", f"${data[ticker2].iloc[-1]:.2f}", f"{returns[ticker2].iloc[-1] * 100:.2f}%")
-    
+    # Price Ratio
+    # ------------------------------------
     with st.expander(f"Price Ratio"):
         mean_ratio = data['Price Ratio'].mean()
         percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
@@ -120,7 +123,9 @@ if st.session_state.pairs:
             st.success("✅ Long Signal: Price Ratio below lower bound")
         elif data['Price Ratio'].iloc[-1] > upper_bound:
             st.warning("⚠️ Short Signal: Price Ratio above upper bound")
-    
+            
+    # Pair spread
+    # ------------------------------------
     with st.expander(f"Pair Spread"):
         fig_spread = px.line(data, x=data.index, y='Pair Value', title=f"Pair Spread: {units1} {ticker1} - {units2} {ticker2}", line_shape='linear')
         fig_spread.update_traces(line=dict(color='#4A4A4A'))  

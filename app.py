@@ -179,7 +179,7 @@ if st.session_state.pairs:
         )
 
         # Update the line color to a custom color (e.g., '#FF5733' for a shade of orange)
-        fig2.update_traces(line=dict(color='#003057'))
+        fig2.update_traces(line=dict(color='#005fac'))
 
         # Add a horizontal line for the mean
         fig2.add_shape(

@@ -244,7 +244,7 @@ if st.session_state.pairs:
 
                 pair_returns = data["Pair value"].pct_change().dropna()
                 # Calculate cumulative returns
-                cumulative_returns = (1 + returns).cumprod() - 1
+                cumulative_returns = (1 + pair_returns).cumprod() - 1
                 # Streamlit app
                 st.title("Cumulative Returns of the Pair")
                 

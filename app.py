@@ -149,6 +149,10 @@ if st.session_state.pairs:
     
             # Calculate the mean of the Price ratio
             mean_price_ratio = price_ratio_df['Price ratio'].mean()
+
+            # Enter percentile input 
+            with col1:
+                percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
     
             # Calculate percentiles
             lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
@@ -159,9 +163,7 @@ if st.session_state.pairs:
             # Create columns for layout
             col1, col2 = st.columns([1, 3])
             
-            # Enter percentile input 
-            with col1:
-                percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
+            
     
             # Create Plotly figure
             fig2 = px.line(

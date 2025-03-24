@@ -124,5 +124,5 @@ if st.session_state.pairs:
     
     with st.expander(f"Pair Spread"):
         fig_spread = px.line(data, x=data.index, y='Pair Value', title=f"Pair Spread: {units1} {ticker1} - {units2} {ticker2}", line_shape='linear')
-        fig_spread.update_traces(line=dict(color='#005fac'))  # Custom color (Dark Blue)
+        fig_spread.update_traces(line=dict(color='#4A4A4A'))  
         st.plotly_chart(fig_spread)

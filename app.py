@@ -61,7 +61,7 @@ with st.form("pairs_form"):
                 "Stock/ETF 2": ticker2,
             })
         except Exception as e:
-            st.error(f"🚨 Error fetching data: {e}")
+            st.error("")
 
 st.divider()
 
@@ -243,4 +243,22 @@ if st.session_state.pairs:
                 st.error("🚨 Pair value data is not available.")
         except Exception as e:
             st.error(f"🚨 Error displaying pair spread: {e}")
+
+
+    # Add a button to display the pair spread plot inside a dropdown
+    with st.expander("View Monte Carlo VaR"):
+        try: 
+            st.subheader("How much could I lose over a given period, for a given probability?")
+
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                analysis_period = st.number_input("Select Analysis Period (Days):", min_value=1, max_value=30, value=5)
+            with col2:
+                var_percentile = st.number_input("Select VaR Percentile:", min_value=0.01, max_value=99.99, value=95.00, format="%.2f")
+            with col3:
+                simulations = st.number_input("Number of Monte Carlo Simulations:", min_value=100, max_value=10000, value=2000)
+                
+        except Exception as e:
+            st.error(f"🚨 Error displaying pair VaR: {e}")
             
+                    

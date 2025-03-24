@@ -263,7 +263,32 @@ if st.session_state.pairs:
             # Button to Run Calculation
             if st.button("Calculate VaR"):
                 st.write("")
+                returns = data["Pair value"].pct_change(analysis_period).dropna()
+                mu, sigma = returns.mean(), returns.std()
                 
+                # Monte Carlo Simulation
+                simulated_returns = np.random.normal(mu, sigma, simulations)
+                VaR_value = np.percentile(simulated_returns, 100 - var_percentile) * 100
+                # Compute CVaR (Expected Shortfall)
+                CVaR_value = simulated_returns[simulated_returns < (VaR_value / 100)].mean() * 100
+    
+                # Custom font color for stock name
+                stock_name_colored = f"<span style='color:white'><b> {units1} {ticker1} - {units2} {ticker2}</b></span>"
+                
+                # Create Interactive Histogram
+                fig = px.histogram(x=simulated_returns, nbins=50, title=f"Monte Carlo Simulated Returns: {stock_name_colored}", labels={"x": "Returns"}, opacity=0.7, color_discrete_sequence=["#6b5d50"])
+                fig.add_vline(x=VaR_value / 100, line=dict(color="red", width=2, dash="dash"))
+                fig.update_layout(xaxis_title="Returns", yaxis_title="Frequency", showlegend=False)
+    
+                # Store in Session State
+                st.session_state.var_result = {
+                    "VaR_value": VaR_value,
+                    "CVaR_value": CVaR_value,
+                    "var_percentile": var_percentile
+                }
+    
+                st.session_state.histogram_fig = fig
+                st.session_state.data = returns  # Store historical returns for stress testing
                 
         except Exception as e:
             st.error(f"🚨 Error displaying pair VaR: {e}")

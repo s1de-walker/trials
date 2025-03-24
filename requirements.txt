@@ -6,3 +6,4 @@ altair
 statsmodels
 scipy
 plotly
+matplotlib

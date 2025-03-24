@@ -132,85 +132,93 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")
 
-    # Create columns for layout
-    col1, col2 = st.columns([1, 3])
     
-    # Enter percentile input 
-    with col1:
-        percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
 
     try:
-        price_ratio = data[['Price ratio']]
-
-        # Create a DataFrame for plotting
-        price_ratio_df = pd.DataFrame({
-            'Date': price_ratio.index,
-            'Price ratio': price_ratio.values.flatten()
-        })
-
-        # Calculate the mean of the Price ratio
-        mean_price_ratio = price_ratio_df['Price ratio'].mean()
-
-        # Calculate percentiles
-        lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
-        upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)        
-
-        # Create Plotly figure
-        fig2 = px.line(
-            price_ratio_df,
-            x="Date",
-            y="Price ratio",
-            title=f"Price ratio ({ticker1} / {ticker2})"
-        )
-
-        # Update the line color to a custom color (e.g., '#FF5733' for a shade of orange)
-        fig2.update_traces(line=dict(color='#005fac'))
-
-        # Add a horizontal line for the mean
-        fig2.add_shape(
-            type="line",
-            x0=price_ratio_df['Date'].min(),
-            x1=price_ratio_df['Date'].max(),
-            y0=mean_price_ratio,
-            y1=mean_price_ratio,
-            line=dict(
-                color="white",
-                width=2,
-                dash="dot"
-            ),
-            name="Mean"
-        )
-
-        # Add horizontal lines for the percentiles
-        fig2.add_shape(
-            type="line",
-            x0=price_ratio_df['Date'].min(),
-            x1=price_ratio_df['Date'].max(),
-            y0=lower_percentile,
-            y1=lower_percentile,
-            line=dict(
-                color="grey",
-                width=2
-            ),
-            name=f"{percentile}th Percentile"
-        )
-
-        fig2.add_shape(
-            type="line",
-            x0=price_ratio_df['Date'].min(),
-            x1=price_ratio_df['Date'].max(),
-            y0=upper_percentile,
-            y1=upper_percentile,
-            line=dict(
-                color="grey",
-                width=2
-            ),
-            name=f"{100 - percentile}th Percentile"
-        )
-
-        # Show chart in Streamlit
-        st.plotly_chart(fig2)
-        st.divider()
+        # View Price Ratio inside a dropdown
+        with st.expander("View Price Ratio"):
+            st.subheader("Price Ratio")
+        
+            price_ratio = data[['Price ratio']]
+    
+            # Create a DataFrame for plotting
+            price_ratio_df = pd.DataFrame({
+                'Date': price_ratio.index,
+                'Price ratio': price_ratio.values.flatten()
+            })
+    
+            # Calculate the mean of the Price ratio
+            mean_price_ratio = price_ratio_df['Price ratio'].mean()
+    
+            # Calculate percentiles
+            lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
+            upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)   
+    
+            
+    
+            # Create columns for layout
+            col1, col2 = st.columns([1, 3])
+            
+            # Enter percentile input 
+            with col1:
+                percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
+    
+            # Create Plotly figure
+            fig2 = px.line(
+                price_ratio_df,
+                x="Date",
+                y="Price ratio",
+                title=f"Price ratio ({ticker1} / {ticker2})"
+            )
+    
+            # Update the line color to a custom color (e.g., '#FF5733' for a shade of orange)
+            fig2.update_traces(line=dict(color='#005fac'))
+    
+            # Add a horizontal line for the mean
+            fig2.add_shape(
+                type="line",
+                x0=price_ratio_df['Date'].min(),
+                x1=price_ratio_df['Date'].max(),
+                y0=mean_price_ratio,
+                y1=mean_price_ratio,
+                line=dict(
+                    color="white",
+                    width=2,
+                    dash="dot"
+                ),
+                name="Mean"
+            )
+    
+            # Add horizontal lines for the percentiles
+            fig2.add_shape(
+                type="line",
+                x0=price_ratio_df['Date'].min(),
+                x1=price_ratio_df['Date'].max(),
+                y0=lower_percentile,
+                y1=lower_percentile,
+                line=dict(
+                    color="grey",
+                    width=2
+                ),
+                name=f"{percentile}th Percentile"
+            )
+    
+            fig2.add_shape(
+                type="line",
+                x0=price_ratio_df['Date'].min(),
+                x1=price_ratio_df['Date'].max(),
+                y0=upper_percentile,
+                y1=upper_percentile,
+                line=dict(
+                    color="grey",
+                    width=2
+                ),
+                name=f"{100 - percentile}th Percentile"
+            )
+    
+            # Show chart in Streamlit
+            st.plotly_chart(fig2)
+            st.divider()
         
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")

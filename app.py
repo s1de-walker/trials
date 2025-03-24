@@ -266,7 +266,8 @@ if st.session_state.pairs:
                     st.write("")
                     returns = data["Pair value"].pct_change(analysis_period).dropna()
                     mu, sigma = returns.mean(), returns.std()
-                    st.dataframe(returns)
+                    st.dataframe(data["Pair value"], returns)
+                    
                     
                     # Monte Carlo Simulation
                     simulated_returns = np.random.normal(mu, sigma, simulations)

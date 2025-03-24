@@ -90,12 +90,31 @@ if st.session_state.pairs:
         percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
         lower_bound = np.percentile(data['Price Ratio'], percentile)
         upper_bound = np.percentile(data['Price Ratio'], 100 - percentile)
-        
+    
         fig = px.line(data, x=data.index, y='Price Ratio', title=f"Price Ratio ({ticker1}/{ticker2})", line_shape='linear')
-        fig.update_traces(line=dict(color='#F2F2F2'))  # Custom color 
-        fig.add_hline(y=mean_ratio, line_dash="dot", annotation_text="Mean", annotation_position="bottom right", line_color="#4A4A4A")
-        fig.add_hline(y=lower_bound, line_dash="solid", line_color="#4A4A4A", annotation_text=f"{percentile}th Percentile")
-        fig.add_hline(y=upper_bound, line_dash="solid", line_color="#4A4A4A", annotation_text=f"{100 - percentile}th Percentile")
+        fig.update_traces(line=dict(color='#FF5733'))  # Custom orange-red color for better contrast
+        
+        # Mean line with annotation on the left
+        fig.add_hline(y=mean_ratio, line_dash="dot", line_color="#4A4A4A")
+        fig.add_annotation(
+            x=data.index.min(), y=mean_ratio, text="Mean",
+            showarrow=False, xanchor="left", font=dict(color="white", size=12), bgcolor="black"
+        )
+    
+        # Lower Bound with annotation on the left
+        fig.add_hline(y=lower_bound, line_dash="solid", line_color="#4A4A4A")
+        fig.add_annotation(
+            x=data.index.min(), y=lower_bound, text=f"{percentile}th Percentile",
+            showarrow=False, xanchor="left", font=dict(color="grey", size=12), bgcolor="black"
+        )
+    
+        # Upper Bound with annotation on the left
+        fig.add_hline(y=upper_bound, line_dash="solid", line_color="#4A4A4A")
+        fig.add_annotation(
+            x=data.index.min(), y=upper_bound, text=f"{100 - percentile}th Percentile",
+            showarrow=False, xanchor="left", font=dict(color="grey", size=12), bgcolor="black"
+        )
+    
         st.plotly_chart(fig)
         
         if data['Price Ratio'].iloc[-1] < lower_bound:

@@ -1,4 +1,4 @@
-# Libraries
+e# Libraries
 # ------------------------------------
 import streamlit as st
 import pandas as pd
@@ -55,20 +55,8 @@ with st.form("pairs_form"):
     
     submit = st.form_submit_button("Confirm Pair")
 
-    if submit and ticker1 is not None and ticker2 is not None:
-        # Fetch latest stock prices from Yahoo Finance
-        try:
-            data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
-            
-            st.session_state.pairs.append({
-                "Units 1": units1,
-                "Stock/ETF 1": ticker1,
-                "Units 2": units2,
-                "Stock/ETF 2": ticker2,
-            })
-        except Exception as e:
-            st.error("")
-
+    if submit and ticker1 and ticker2:
+        st.session_state.pairs.append({"Units 1": units1, "Stock/ETF 1": ticker1, "Units 2": units2, "Stock/ETF 2": ticker2})
 st.divider()
 # Input End------------------------------------
 

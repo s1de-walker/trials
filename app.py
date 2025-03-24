@@ -262,6 +262,7 @@ if st.session_state.pairs:
 
             # Button to Run Calculation
             if st.button("Calculate VaR"):
+                st.write("")
                 
                 
         except Exception as e:

@@ -94,7 +94,7 @@ if st.session_state.pairs:
         fig.update_traces(line=dict(color='#4A4A4A'))  # Custom orange-red color for better contrast
         
         # Mean line with annotation on the left
-        fig.add_hline(y=mean_ratio, line_dash="dot", line_color="#F2F2F2", line_width=0.5)
+        fig.add_hline(y=mean_ratio, line_dash="dot", line_color="white", line_width=0.5)
         fig.add_annotation(
             x=data.index.min(), y=mean_ratio, text="Mean",
             showarrow=False, xanchor="left", font=dict(color="grey", size=10), bgcolor="black"

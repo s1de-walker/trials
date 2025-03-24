@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
 import plotly.express as px
+import plotly.graph_objects as go
 
 # Title
 st.title("Pairs @ Risk")
@@ -162,6 +163,9 @@ if st.session_state.pairs:
         ))
 
         # Add horizontal lines
+
+        #Show plot
+        st.plotly_chart(fig)
         
 
         # Create Plotly figure

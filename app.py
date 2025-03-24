@@ -155,11 +155,11 @@ if st.session_state.pairs:
         fig3 = go.Figure()
 
         # Add the main line with dynamic color
-        colors = ["black" if (val < lower_percentile or val > upper_percentile) else "#E7E6E6" for val in price_ratio_df['Price ratio']]
+        colors2 = ["black" if (val < lower_percentile or val > upper_percentile) else "#E7E6E6" for val in price_ratio_df['Price ratio']]
 
         fig3.add_trace(go.Scatter(
             x = price_ratio_df['Date'], y = price_ratio_df["Price ratio"],
-            mode = 'lines', line = dict(width = 2), marker = dict(color = colors), name = "Price ratio"
+            mode = 'lines', line = dict(width = 2), marker = dict(color = colors2), name = "Price ratio"
         ))
 
         # Add horizontal lines

@@ -234,7 +234,7 @@ if st.session_state.pairs:
                     data.reset_index(),
                     x="Date",
                     y="Pair value",
-                    title="Pair Spread"
+                    title=f"Pair Spread: {units1} {ticker1} - {units2} {ticker2}"
                 )
                 
                 # Show the plot in Streamlit

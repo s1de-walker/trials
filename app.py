@@ -1,16 +1,9 @@
-
 import streamlit as st
-import numpy as np
 import pandas as pd
 import yfinance as yf
-import plotly.figure_factory as ff
-import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import plotly.express as px
-
-#Libraries--------------------------------------------------------------------------------------
-
-# Sidebar instructions-----------------------------------------------------------------------------
+import plotly.graph_objects as go
 
 # Title
 st.title("Pairs @ Risk")
@@ -19,7 +12,6 @@ st.write("")
 
 if 'pairs' not in st.session_state:
     st.session_state.pairs = []
-
 
 # Date Input Section
 col_date1, col_date2 = st.columns(2)
@@ -137,9 +129,8 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")
 
-    # Add percentile input⚠️
+    # Add percentile input
     percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
-    
 
     try:
         price_ratio = data[['Price ratio']]
@@ -157,17 +148,17 @@ if st.session_state.pairs:
         lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
         upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)
 
-        
         # Create Plotly figure
-        fig2 = px.line(
-            price_ratio_df,
-            x="Date",
-            y="Price ratio",
-            title=f"Price ratio ({ticker1} / {ticker2})"
-        )
+        fig2 = go.Figure()
 
-        # Update the line color to a custom color (e.g., '#FF5733' for a shade of orange)
-        fig2.update_traces(line=dict(color='#E7E6E6'))
+        # Add segments to the plot
+        below_lower = price_ratio_df[price_ratio_df['Price ratio'] < lower_percentile]
+        between = price_ratio_df[(price_ratio_df['Price ratio'] >= lower_percentile) & (price_ratio_df['Price ratio'] <= upper_percentile)]
+        above_upper = price_ratio_df[price_ratio_df['Price ratio'] > upper_percentile]
+
+        fig2.add_trace(go.Scatter(x=below_lower['Date'], y=below_lower['Price ratio'], mode='lines', name='Below Lower Percentile', line=dict(color='Blue')))
+        fig2.add_trace(go.Scatter(x=between['Date'], y=between['Price ratio'], mode='lines', name='Between Percentiles', line=dict(color='#E7E6E6')))
+        fig2.add_trace(go.Scatter(x=above_upper['Date'], y=above_upper['Price ratio'], mode='lines', name='Above Upper Percentile', line=dict(color='Green')))
 
         # Add a horizontal line for the mean
         fig2.add_shape(
@@ -184,7 +175,7 @@ if st.session_state.pairs:
             name="Mean"
         )
 
-        # Add horizontal lines for the percentiles ⚠️
+        # Add horizontal lines for the percentiles
         fig2.add_shape(
             type="line",
             x0=price_ratio_df['Date'].min(),
@@ -213,17 +204,9 @@ if st.session_state.pairs:
             name=f"{100 - percentile}th Percentile"
         )
 
-        # Highlight areas where the price ratio crosses the percentile lines
-        fig2.add_traces([
-            px.line(price_ratio_df[price_ratio_df['Price ratio'] < lower_percentile], x='Date', y='Price ratio').data[0].update(line=dict(color='Blue')),
-            px.line(price_ratio_df[price_ratio_df['Price ratio'] > upper_percentile], x='Date', y='Price ratio').data[0].update(line=dict(color='Green'))
-        ])
-        
         # Show chart in Streamlit
         st.plotly_chart(fig2)
         st.divider()
         
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")
-    
-

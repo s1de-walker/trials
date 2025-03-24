@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 # ------------------------------------
 # Title
 st.title("Pairs @ Risk")
-st.write("")
+st.caption("Monitor your trading pairs with risk metrics and alerts.")
 st.write("")
 
 if 'pairs' not in st.session_state:

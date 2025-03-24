@@ -217,7 +217,7 @@ if st.session_state.pairs:
         try:
             # Ensure the data is available
             if "Pair value" in data.columns:
-                st.write("### Pair Spread")
+    
                 
                 # Create a Plotly figure for the pair spread
                 fig3 = px.line(

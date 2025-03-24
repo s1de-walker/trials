@@ -271,14 +271,19 @@ if st.session_state.pairs:
                     st.dataframe(data["Pair value"])
                     st.write(returns.describe().T)
 
+                    # Streamlit app
+                    st.title("Histogram of Returns")
+                    
                     # Plotting the histogram of returns
-                    plt.figure(figsize=(10, 6))
-                    plt.hist(returns, bins=50, color='blue', edgecolor='black', alpha=0.7)
-                    plt.title('Histogram of Returns')
-                    plt.xlabel('Returns')
-                    plt.ylabel('Frequency')
-                    plt.grid(True)
-                    plt.show()
+                    fig, ax = plt.subplots(figsize=(10, 6))
+                    ax.hist(returns, bins=50, color='blue', edgecolor='black', alpha=0.7)
+                    ax.set_title('Histogram of Returns')
+                    ax.set_xlabel('Returns')
+                    ax.set_ylabel('Frequency')
+                    ax.grid(True)
+                    
+                    # Display the plot in Streamlit
+                    st.pyplot(fig)
                                         
                     
                     # Monte Carlo Simulation

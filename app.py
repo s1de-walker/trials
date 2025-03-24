@@ -249,15 +249,15 @@ if st.session_state.pairs:
                 st.title("Cumulative Returns of the Pair")
                 
                 # Plotting the cumulative returns
-                fig, ax = plt.subplots(figsize=(10, 6))
-                ax.plot(cumulative_returns, color='blue')
-                ax.set_title('Cumulative Returns of the Pair')
-                ax.set_xlabel('Date')
-                ax.set_ylabel('Cumulative Returns')
-                ax.grid(True)
+                fig4, ax4 = plt.subplots(figsize=(10, 6))
+                ax4.plot(cumulative_returns, color='blue')
+                ax4.set_title('Cumulative Returns of the Pair')
+                ax4.set_xlabel('Date')
+                ax4.set_ylabel('Cumulative Returns')
+                ax4.grid(True)
                 
                 # Display the plot in Streamlit
-                st.pyplot(fig)
+                st.pyplot(fig4)
                 
 
             else:

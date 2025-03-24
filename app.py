@@ -75,8 +75,7 @@ if st.session_state.pairs:
         
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")
-
- returns = data[[ticker1, ticker2]].pct_change().dropna()
+    returns = data[[ticker1, ticker2]].pct_change().dropna()
     cm_returns = (returns + 1).cumprod() - 1
     
     with st.expander(f"Market Summary for {ticker1}/{ticker2}"):

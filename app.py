@@ -128,8 +128,12 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")
 
-    # Add percentile input
-    percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
+    # Create columns for layout
+    col1, col2 = st.columns([1, 3])
+    
+    # Enter percentile input 
+    with col1:
+        percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
 
     try:
         price_ratio = data[['Price ratio']]

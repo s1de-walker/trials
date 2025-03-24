@@ -150,25 +150,7 @@ if st.session_state.pairs:
 
         # Calculate percentiles
         lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
-        upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)
-
-        fig3 = go.Figure()
-
-        # Add the main line with dynamic color
-        colors2 = ["black" if (val < lower_percentile or val > upper_percentile) else "#E7E6E6" for val in price_ratio_df['Price ratio']]
-
-        fig3.add_trace(go.Scatter(
-            x = price_ratio_df['Date'], y = price_ratio_df["Price ratio"],
-            mode = 'lines', line = dict(width = 2), marker = dict(color = colors2), name = "Price ratio"
-        ))
-
-        #Add shaded area (blur effect)
-
-        # Add horizontal lines
-
-        #Show plot
-        st.plotly_chart(fig3)
-        
+        upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)        
 
         # Create Plotly figure
         fig2 = px.line(

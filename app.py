@@ -248,14 +248,13 @@ if st.session_state.pairs:
                 # Streamlit app
                 st.title("Cumulative Returns of the Pair")
                 
-                # Plotting the cumulative returns
-                fig4, ax4 = plt.subplots(figsize=(10, 6))
-                ax4.plot(cumulative_returns, color='blue')
-                ax4.set_title('Cumulative Returns of the Pair')
-                ax4.set_xlabel('Date')
-                ax4.set_ylabel('Cumulative Returns')
-                ax4.grid(True)
+                # Plotting the cumulative returns using Plotly
+                fig = px.line(cumulative_returns, title='Cumulative Returns of the Pair')
+                fig.update_layout(xaxis_title='Date', yaxis_title='Cumulative Returns')
                 
+                # Display the plot in Streamlit
+                st.plotly_chart(fig)
+                                
                 # Display the plot in Streamlit
                 st.pyplot(fig4)
                 

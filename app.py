@@ -268,6 +268,7 @@ if st.session_state.pairs:
                     mu, sigma = returns.mean(), returns.std()
                     st.dataframe(returns)
                     st.dataframe(data["Pair value"])
+                    st.write(returns.describe().T)
                     
                     
                     # Monte Carlo Simulation

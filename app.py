@@ -162,6 +162,8 @@ if st.session_state.pairs:
             mode = 'lines', line = dict(width = 2), marker = dict(color = colors2), name = "Price ratio"
         ))
 
+        #Add shaded area (blur effect)
+
         # Add horizontal lines
 
         #Show plot
@@ -187,7 +189,7 @@ if st.session_state.pairs:
             y0=mean_price_ratio,
             y1=mean_price_ratio,
             line=dict(
-                color="Red",
+                color="grey",
                 width=2,
                 dash="dot"
             ),

@@ -151,17 +151,14 @@ if st.session_state.pairs:
             mean_price_ratio = price_ratio_df['Price ratio'].mean()
 
             # Enter percentile input 
+            # Create columns for layout
+            col1, col2 = st.columns([1, 3])
             with col1:
                 percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
     
             # Calculate percentiles
             lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
             upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)   
-    
-            
-    
-            # Create columns for layout
-            col1, col2 = st.columns([1, 3])
             
             
     

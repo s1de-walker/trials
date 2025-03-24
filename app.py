@@ -79,7 +79,7 @@ if st.session_state.pairs:
     returns = data[[ticker1, ticker2]].pct_change().dropna()
     cm_returns = (returns + 1).cumprod() - 1
     
-     with st.expander(f"Market Summary for {ticker1}/{ticker2}"):
+    with st.expander(f"Market Summary for {ticker1}/{ticker2}"):
         st.subheader("Market Summary")
         col1, col2 = st.columns(2)
         col1.metric(f"{ticker1}", f"${data[ticker1].iloc[-1]:.2f}", f"{returns[ticker1].iloc[-1] * 100:.2f}%")

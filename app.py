@@ -153,6 +153,10 @@ if st.session_state.pairs:
         # Calculate the mean of the Price ratio
         mean_price_ratio = price_ratio_df['Price ratio'].mean()
 
+        # Calculate percentiles
+        lower_percentile = price_ratio_df['Price ratio'].quantile(percentile / 100)
+        upper_percentile = price_ratio_df['Price ratio'].quantile(1 - percentile / 100)
+
         
         # Create Plotly figure
         fig2 = px.line(

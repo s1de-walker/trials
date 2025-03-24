@@ -212,15 +212,25 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")
 
-    # Add a button to display the pair spread
+    # Add a button to display the pair spread plot
     if st.button("Show Pair Spread"):
         try:
             # Ensure the data is available
             if "Pair value" in data.columns:
                 st.write("### Pair Spread")
-                st.dataframe(data[["Pair value"]], use_container_width=True)
+                
+                # Create a Plotly figure for the pair spread
+                fig3 = px.line(
+                    data.reset_index(),
+                    x="Date",
+                    y="Pair value",
+                    title="Pair Spread"
+                )
+                
+                # Show the plot in Streamlit
+                st.plotly_chart(fig3)
             else:
                 st.error("🚨 Pair value data is not available.")
         except Exception as e:
             st.error(f"🚨 Error displaying pair spread: {e}")
-        
+            

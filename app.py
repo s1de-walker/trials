@@ -189,7 +189,7 @@ if st.session_state.pairs:
             y0=mean_price_ratio,
             y1=mean_price_ratio,
             line=dict(
-                color="grey",
+                color="white",
                 width=2,
                 dash="dot"
             ),

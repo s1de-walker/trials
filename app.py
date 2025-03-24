@@ -257,6 +257,12 @@ if st.session_state.pairs:
                 var_percentile = st.number_input("Select VaR Percentile:", min_value=0.01, max_value=99.99, value=95.00, format="%.2f")
             with col3:
                 simulations = st.number_input("Number of Monte Carlo Simulations:", min_value=100, max_value=10000, value=2000)
+
+            st.write("")
+
+            # Button to Run Calculation
+            if st.button("Calculate VaR"):
+                
                 
         except Exception as e:
             st.error(f"🚨 Error displaying pair VaR: {e}")

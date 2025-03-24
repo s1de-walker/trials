@@ -202,7 +202,7 @@ if st.session_state.pairs:
             y0=lower_percentile,
             y1=lower_percentile,
             line=dict(
-                color="Blue",
+                color="grey",
                 width=2
             ),
             name=f"{percentile}th Percentile"
@@ -215,7 +215,7 @@ if st.session_state.pairs:
             y0=upper_percentile,
             y1=upper_percentile,
             line=dict(
-                color="Green",
+                color="grey",
                 width=2
             ),
             name=f"{100 - percentile}th Percentile"

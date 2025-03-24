@@ -243,20 +243,17 @@ if st.session_state.pairs:
                 st.plotly_chart(fig3)
 
                 pair_returns = data["Pair value"].pct_change().dropna()
+                
                 # Calculate cumulative returns
                 cumulative_returns = (1 + pair_returns).cumprod() - 1
-                # Streamlit app
-                st.title("Cumulative Returns of the Pair")
+               
                 
                 # Plotting the cumulative returns using Plotly
-                fig = px.line(cumulative_returns, title='Cumulative Returns of the Pair')
-                fig.update_layout(xaxis_title='Date', yaxis_title='Cumulative Returns')
+                fig4 = px.line(cumulative_returns, title='Cumulative Returns of the Pair')
+                fig4.update_layout(xaxis_title='Date', yaxis_title='Cumulative Returns')
                 
                 # Display the plot in Streamlit
-                st.plotly_chart(fig)
-                                
-                # Display the plot in Streamlit
-                st.pyplot(fig4)
+                st.plotly_chart(fig4)
                 
 
             else:

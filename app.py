@@ -80,7 +80,6 @@ if st.session_state.pairs:
     cm_returns = (returns + 1).cumprod() - 1
     
     with st.expander(f"Market Summary"):
-        st.subheader("Market Summary")
         col1, col2 = st.columns(2)
         col1.metric(f"{ticker1}", f"${data[ticker1].iloc[-1]:.2f}", f"{returns[ticker1].iloc[-1] * 100:.2f}%")
         col2.metric(f"{ticker2}", f"${data[ticker2].iloc[-1]:.2f}", f"{returns[ticker2].iloc[-1] * 100:.2f}%")

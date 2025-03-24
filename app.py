@@ -98,7 +98,7 @@ if st.session_state.pairs:
         fig.add_hline(y=mean_ratio, line_dash="dot", line_color="#4A4A4A")
         fig.add_annotation(
             x=data.index.min(), y=mean_ratio, text="Mean",
-            showarrow=False, xanchor="left", font=dict(color="white", size=12), bgcolor="black"
+            showarrow=False, xanchor="left", font=dict(color="grey", size=12), bgcolor="black"
         )
     
         # Lower Bound with annotation on the left

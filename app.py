@@ -217,7 +217,6 @@ if st.session_state.pairs:
     
             # Show chart in Streamlit
             st.plotly_chart(fig2)
-            st.divider()
         
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")

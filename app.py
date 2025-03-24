@@ -211,3 +211,16 @@ if st.session_state.pairs:
         
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")
+
+    # Add a button to display the pair spread
+    if st.button("Show Pair Spread"):
+        try:
+            # Ensure the data is available
+            if "Pair value" in data.columns:
+                st.write("### Pair Spread")
+                st.dataframe(data[["Pair value"]], use_container_width=True)
+            else:
+                st.error("🚨 Pair value data is not available.")
+        except Exception as e:
+            st.error(f"🚨 Error displaying pair spread: {e}")
+        

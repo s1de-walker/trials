@@ -1,3 +1,5 @@
+# Libraries
+# ------------------------------------
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,6 +9,9 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 
+
+# Input
+# ------------------------------------
 # Title
 st.title("Pairs @ Risk")
 st.write("")
@@ -66,7 +71,11 @@ with st.form("pairs_form"):
             st.error("")
 
 st.divider()
+# Input End------------------------------------
 
+
+# Market Summary
+# ------------------------------------
 # Historical Time Series Calculation
 if st.session_state.pairs:
 
@@ -135,7 +144,8 @@ if st.session_state.pairs:
         st.error(f"🚨 Error analysing data: {e}")
 
     
-
+# Price Ratio
+# ------------------------------------
     try:
         # View Price Ratio inside a dropdown
         with st.expander("View Price Ratio"):
@@ -222,7 +232,9 @@ if st.session_state.pairs:
         
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")
-
+        
+# Pair Spread
+# ------------------------------------
     # Add a button to display the pair spread plot inside a dropdown
     with st.expander("View Pair Spread"):
     
@@ -241,19 +253,6 @@ if st.session_state.pairs:
                 
                 # Show the plot in Streamlit
                 st.plotly_chart(fig3)
-
-                pair_returns = data["Pair value"].pct_change().dropna()
-                
-                # Calculate cumulative returns
-                cumulative_returns = (1 + pair_returns).cumprod() - 1
-               
-                
-                # Plotting the cumulative returns using Plotly
-                fig4 = px.line(cumulative_returns, title='Cumulative Returns of the Pair')
-                fig4.update_layout(xaxis_title='Date', yaxis_title='Cumulative Returns')
-                
-                # Display the plot in Streamlit
-                st.plotly_chart(fig4)
                 
 
             else:

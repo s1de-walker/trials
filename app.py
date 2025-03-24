@@ -260,8 +260,7 @@ if st.session_state.pairs:
                 simulations = st.number_input("Number of Monte Carlo Simulations:", min_value=100, max_value=10000, value=2000)
 
             st.write("")
-            try: 
-
+            try:
                 # Button to Run Calculation
                 if st.button("Calculate VaR"):
                     st.write("")
@@ -291,7 +290,15 @@ if st.session_state.pairs:
         
                     st.session_state.histogram_fig = fig
                     st.session_state.data = returns  # Store historical returns for stress testing
-    
+
+                    if st.session_state.var_result:
+                        st.plotly_chart(st.session_state.histogram_fig)
+                        var_res = st.session_state.var_result
+                        st.markdown(f"<h5>VaR {var_res['var_percentile']:.1f}:    <span style='font-size:32px; font-weight:bold; color:#FF5733;'>{var_res['VaR_value']:.1f}%</span></h5>", unsafe_allow_html=True)
+                        st.write(f"**There is a {100-var_res['var_percentile']:.1f}% chance of losing more than {var_res['VaR_value']:.1f}% over the period.**")
+                        st.write(f"**Expected Shortfall (CVaR) in worst cases: {var_res['CVaR_value']:.2f}%**")
+                        st.caption("This helps to manage tail risk")
+                    
 
             except Exception as e:
                 st.error(f"🚨 Error displaying pair VaR: {e}")

@@ -269,7 +269,16 @@ if st.session_state.pairs:
                     st.dataframe(returns)
                     st.dataframe(data["Pair value"])
                     st.write(returns.describe().T)
-                    
+
+                    # Plotting the histogram of returns
+                    plt.figure(figsize=(10, 6))
+                    plt.hist(returns, bins=50, color='blue', edgecolor='black', alpha=0.7)
+                    plt.title('Histogram of Returns')
+                    plt.xlabel('Returns')
+                    plt.ylabel('Frequency')
+                    plt.grid(True)
+                    plt.show()
+                                        
                     
                     # Monte Carlo Simulation
                     simulated_returns = np.random.normal(mu, sigma, simulations)

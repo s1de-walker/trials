@@ -87,7 +87,7 @@ if st.session_state.pairs:
         cm_returns = (returns + 1).cumprod() - 1
 
         # Market Summary inside a dropdown
-        with st.expander("Market Summary"):
+        with st.expander("View Market Summary"):
     
             # Plot cumulative returns
             st.subheader("Market Summary")

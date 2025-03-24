@@ -221,8 +221,9 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing price ratio data: {e}")
 
-    # Add a button to display the pair spread plot
-    if st.button("Show Pair Spread"):
+    # Add a button to display the pair spread plot inside a dropdown
+    with st.expander("View Pair Spread"):
+    
         try:
             # Ensure the data is available
             if "Pair value" in data.columns:

@@ -79,7 +79,7 @@ if st.session_state.pairs:
     returns = data[[ticker1, ticker2]].pct_change().dropna()
     cm_returns = (returns + 1).cumprod() - 1
     
-    with st.expander(f"Market Summary for {ticker1}/{ticker2}"):
+     with st.expander(f"Market Summary for {ticker1}/{ticker2}"):
         st.subheader("Market Summary")
         col1, col2 = st.columns(2)
         col1.metric(f"{ticker1}", f"${data[ticker1].iloc[-1]:.2f}", f"{returns[ticker1].iloc[-1] * 100:.2f}%")
@@ -88,11 +88,12 @@ if st.session_state.pairs:
     with st.expander(f"Price Ratio for {ticker1}/{ticker2}"):
         mean_ratio = data['Price Ratio'].mean()
         percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
-        lower_bound = np.percentile(data['Price Ratio'].dropna(), percentile)
-        upper_bound = np.percentile(data['Price Ratio'].dropna(), 100 - percentile)
+        lower_bound = data['Price Ratio'].quantile(percentile / 100)
+        upper_bound = data['Price Ratio'].quantile(1 - percentile / 100)
         
-        fig = px.line(data, x=data.index, y='Price Ratio', title=f"Price Ratio ({ticker1}/{ticker2})")
-        fig.add_hline(y=mean_ratio, line_dash="dot", annotation_text="Mean", annotation_position="bottom right")
+        fig = px.line(data, x=data.index, y='Price Ratio', title=f"Price Ratio ({ticker1}/{ticker2})", line_shape='linear')
+        fig.update_traces(line=dict(color='#FF5733'))  # Custom color (Orange-Red)
+        fig.add_hline(y=mean_ratio, line_dash="dot", annotation_text="Mean", annotation_position="bottom right", line_color="blue")
         fig.add_hline(y=lower_bound, line_dash="solid", line_color="red", annotation_text=f"{percentile}th Percentile")
         fig.add_hline(y=upper_bound, line_dash="solid", line_color="green", annotation_text=f"{100 - percentile}th Percentile")
         st.plotly_chart(fig)
@@ -103,5 +104,6 @@ if st.session_state.pairs:
             st.warning("⚠️ Short Signal: Price Ratio above upper bound")
     
     with st.expander(f"Pair Spread for {ticker1}/{ticker2}"):
-        fig_spread = px.line(data, x=data.index, y='Pair Value', title=f"Pair Spread: {units1} {ticker1} - {units2} {ticker2}")
+        fig_spread = px.line(data, x=data.index, y='Pair Value', title=f"Pair Spread: {units1} {ticker1} - {units2} {ticker2}", line_shape='linear')
+        fig_spread.update_traces(line=dict(color='#005fac'))  # Custom color (Dark Blue)
         st.plotly_chart(fig_spread)

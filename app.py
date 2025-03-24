@@ -241,10 +241,31 @@ if st.session_state.pairs:
                 
                 # Show the plot in Streamlit
                 st.plotly_chart(fig3)
+
+                pair_returns = data["Pair value"].pct_change().dropna()
+                # Calculate cumulative returns
+                cumulative_returns = (1 + returns).cumprod() - 1
+                # Streamlit app
+                st.title("Cumulative Returns of the Pair")
+                
+                # Plotting the cumulative returns
+                fig, ax = plt.subplots(figsize=(10, 6))
+                ax.plot(cumulative_returns, color='blue')
+                ax.set_title('Cumulative Returns of the Pair')
+                ax.set_xlabel('Date')
+                ax.set_ylabel('Cumulative Returns')
+                ax.grid(True)
+                
+                # Display the plot in Streamlit
+                st.pyplot(fig)
+                
+
             else:
                 st.error("🚨 Pair value data is not available.")
         except Exception as e:
             st.error(f"🚨 Error displaying pair spread: {e}")
+
+
 
             
                     

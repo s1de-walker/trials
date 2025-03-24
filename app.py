@@ -137,6 +137,10 @@ if st.session_state.pairs:
     except Exception as e:
         st.error(f"🚨 Error analysing data: {e}")
 
+    # Add percentile input⚠️
+    percentile = st.number_input("Select Percentile", min_value=1, max_value=50, value=5, step=1)
+    
+
     try:
         price_ratio = data[['Price ratio']]
 
@@ -175,6 +179,41 @@ if st.session_state.pairs:
             ),
             name="Mean"
         )
+
+        # Add horizontal lines for the percentiles ⚠️
+        fig2.add_shape(
+            type="line",
+            x0=price_ratio_df['Date'].min(),
+            x1=price_ratio_df['Date'].max(),
+            y0=lower_percentile,
+            y1=lower_percentile,
+            line=dict(
+                color="Blue",
+                width=2,
+                dash="dash"
+            ),
+            name=f"{percentile}th Percentile"
+        )
+
+        fig2.add_shape(
+            type="line",
+            x0=price_ratio_df['Date'].min(),
+            x1=price_ratio_df['Date'].max(),
+            y0=upper_percentile,
+            y1=upper_percentile,
+            line=dict(
+                color="Green",
+                width=2,
+                dash="dash"
+            ),
+            name=f"{100 - percentile}th Percentile"
+        )
+
+        # Highlight areas where the price ratio crosses the percentile lines
+        fig2.add_traces([
+            px.line(price_ratio_df[price_ratio_df['Price ratio'] < lower_percentile], x='Date', y='Price ratio').data[0].update(line=dict(color='Blue')),
+            px.line(price_ratio_df[price_ratio_df['Price ratio'] > upper_percentile], x='Date', y='Price ratio').data[0].update(line=dict(color='Green'))
+        ])
         
         # Show chart in Streamlit
         st.plotly_chart(fig2)

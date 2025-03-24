@@ -290,6 +290,8 @@ if st.session_state.pairs:
     
                 st.session_state.histogram_fig = fig
                 st.session_state.data = returns  # Store historical returns for stress testing
+
+            else: st.error("🚨Error")
                 
         except Exception as e:
             st.error(f"🚨 Error displaying pair VaR: {e}")

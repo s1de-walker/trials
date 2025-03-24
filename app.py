@@ -70,11 +70,12 @@ if st.session_state.pairs:
         # Fetch historical data and create required data
         data = yf.download([ticker1, ticker2], start=start_date, end=end_date)["Close"]
         data = data[[ticker1,ticker2]]
-        data['Price ratio'] = data[ticker1]/data[ticker2]
+        data['Price Ratio'] = data[ticker1]/data[ticker2]
         data["Pair value"] = data[ticker1]*units1 - data[ticker2]*units2
         
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")
+        
     returns = data[[ticker1, ticker2]].pct_change().dropna()
     cm_returns = (returns + 1).cumprod() - 1
     

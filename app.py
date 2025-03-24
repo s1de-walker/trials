@@ -97,21 +97,21 @@ if st.session_state.pairs:
         fig.add_hline(y=mean_ratio, line_dash="dot", line_color="#F2F2F2")
         fig.add_annotation(
             x=data.index.min(), y=mean_ratio, text="Mean",
-            showarrow=False, xanchor="left", font=dict(color="grey", size=12), bgcolor="black"
+            showarrow=False, xanchor="left", font=dict(color="grey", size=7), bgcolor="black"
         )
     
         # Lower Bound with annotation on the left
         fig.add_hline(y=lower_bound, line_dash="solid", line_color="#F2F2F2")
         fig.add_annotation(
             x=data.index.min(), y=lower_bound, text=f"{percentile}th Percentile",
-            showarrow=False, xanchor="left", font=dict(color="grey", size=12), bgcolor="black"
+            showarrow=False, xanchor="left", font=dict(color="grey", size=7), bgcolor="black"
         )
     
         # Upper Bound with annotation on the left
         fig.add_hline(y=upper_bound, line_dash="solid", line_color="#F2F2F2")
         fig.add_annotation(
             x=data.index.min(), y=upper_bound, text=f"{100 - percentile}th Percentile",
-            showarrow=False, xanchor="left", font=dict(color="grey", size=12), bgcolor="black"
+            showarrow=False, xanchor="left", font=dict(color="grey", size=7), bgcolor="black"
         )
     
         st.plotly_chart(fig)

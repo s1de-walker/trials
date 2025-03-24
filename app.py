@@ -92,10 +92,10 @@ if st.session_state.pairs:
         upper_bound = np.percentile(data['Price Ratio'], 100 - percentile)
         
         fig = px.line(data, x=data.index, y='Price Ratio', title=f"Price Ratio ({ticker1}/{ticker2})", line_shape='linear')
-        fig.update_traces(line=dict(color='#FF5733'))  # Custom color (Orange-Red)
-        fig.add_hline(y=mean_ratio, line_dash="dot", annotation_text="Mean", annotation_position="bottom right", line_color="blue")
-        fig.add_hline(y=lower_bound, line_dash="solid", line_color="red", annotation_text=f"{percentile}th Percentile")
-        fig.add_hline(y=upper_bound, line_dash="solid", line_color="green", annotation_text=f"{100 - percentile}th Percentile")
+        fig.update_traces(line=dict(color='#B2AC88'))  # Custom color 
+        fig.add_hline(y=mean_ratio, line_dash="dot", annotation_text="Mean", annotation_position="bottom right", line_color="#A1A1A1")
+        fig.add_hline(y=lower_bound, line_dash="solid", line_color="#A1A1A1", annotation_text=f"{percentile}th Percentile")
+        fig.add_hline(y=upper_bound, line_dash="solid", line_color="#A1A1A1", annotation_text=f"{100 - percentile}th Percentile")
         st.plotly_chart(fig)
         
         if data['Price Ratio'].iloc[-1] < lower_bound:

@@ -107,7 +107,7 @@ if st.session_state.pairs:
         upper_bound = np.percentile(data['Price Ratio'], 100 - percentile)
     
         fig = px.line(data, x=data.index, y='Price Ratio', title=f"Price Ratio ({ticker1}/{ticker2})", line_shape='linear')
-        fig.update_traces(line=dict(color='#4A4A4A'))  # Custom orange-red color for better contrast
+        fig.update_traces(line=dict(color='#A55B4B'))  # Custom orange-red color for better contrast
         
         # Mean line with annotation on the left
         fig.add_hline(y=mean_ratio, line_dash="dot", line_color="white", line_width=1.5)

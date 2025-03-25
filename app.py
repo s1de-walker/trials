@@ -240,8 +240,11 @@ if st.session_state.pairs:
 
 
             # ROLLING VOLATILITY GAP
+            # Ensure both series have the same indexes
+            rolling_volatility_ratio_long_aligned = rolling_volatility_ratio_long.reindex(rolling_volatility_ratio_short.index)
+            
             # Calculate the gap between short-term and long-term rolling volatility ratios
-            volatility_ratio_gap = rolling_volatility_ratio_short - rolling_volatility_ratio_long
+            volatility_ratio_gap = rolling_volatility_ratio_short - rolling_volatility_ratio_long_aligned
             
             # Create a DataFrame for plotting the gap
             volatility_ratio_gap_df = pd.DataFrame({

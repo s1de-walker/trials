@@ -87,6 +87,15 @@ if st.session_state.pairs:
         if data.empty or ticker1 not in data.columns or ticker2 not in data.columns:
             st.error("🚨 Error: One or both tickers are invalid. Please enter correct stock/ETF symbols.")
             st.stop()  # Stop execution if tickers are invalid
+
+        # Check if the DataFrame is not empty and the index is within range
+        if data.empty or returns.empty:
+            st.error("DataFrames are empty. Please check your data source.")
+            st.stop()
+        
+        if len(data[ticker1]) == 0 or len(returns[ticker1]) == 0:
+            st.error(f"No data available for {ticker1}. Please check your data source.")
+            st.stop()
         
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")

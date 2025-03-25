@@ -79,6 +79,10 @@ if st.session_state.pairs:
         data = data[[ticker1,ticker2]]
         data['Price Ratio'] = data[ticker1]/data[ticker2]
         data["Pair Value"] = data[ticker1]*units1 - data[ticker2]*units2
+        # Check if data is empty (invalid ticker)
+        if data.empty or ticker1 not in data.columns or ticker2 not in data.columns:
+            st.error("🚨 Error: One or both tickers are invalid. Please enter correct stock/ETF symbols.")
+            st.stop()  # Stop execution if tickers are invalid
         
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")

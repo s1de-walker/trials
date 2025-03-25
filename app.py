@@ -162,7 +162,7 @@ if st.session_state.pairs:
             long_vol_window = st.number_input("Long-Term Window (Days):", min_value=1, max_value=date_range_days, value=50)
 
         # User input for percentile value
-        percentile_value = st.number_input("Percentile Value (50 to 99.99):", min_value=50.0, max_value=99.99, value=95.0)
+        percentile2 = st.number_input("Percentile Value (50 to 99.99):", min_value=50.0, max_value=99.99, value=95.0)
             
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):
@@ -239,10 +239,9 @@ if st.session_state.pairs:
                 'Volatility Ratio Gap': volatility_ratio_gap.values
             })
 
-            # Calculate percentiles and mean
-            upper_threshold = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], percentile_value)
-            lower_threshold = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], 100 - percentile_value)
-            mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
+            percentile2 = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=95.00, format="%.2f")
+            lower_bound2 = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], 100-percentile2)
+            upper_bound2 = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], percentile2)
             
             # Create Plotly figure for volatility ratio gap
             fig_volatility_ratio_gap = px.line(

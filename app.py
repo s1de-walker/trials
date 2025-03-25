@@ -167,16 +167,37 @@ if st.session_state.pairs:
             rolling_volatility_ticker1 = returns[ticker1].rolling(window=short_vol_window).std().dropna()*units1
             rolling_volatility_ticker2 = returns[ticker2].rolling(window=short_vol_window).std().dropna()*units2
 
-            st.dataframe(rolling_volatility_ticker1)
-            st.dataframe(rolling_volatility_ticker2)
+            #st.dataframe(rolling_volatility_ticker1)
+            #st.dataframe(rolling_volatility_ticker2)
 
             # Calculate rolling volatility ratio (ticker1 / ticker2)
             rolling_volatility_ratio = rolling_volatility_ticker1 / rolling_volatility_ticker2
+            
             # Rename column for the ratio
             rolling_volatility_ratio = rolling_volatility_ratio.rename('Rolling Volatility Ratio')
-
-            st.dataframe(rolling_volatility_ratio)
-
+            #st.dataframe(rolling_volatility_ratio)
             
+            # Drop NaN values to start the chart from where the data is available
+            rolling_volatility_ratio = rolling_volatility_ratio.dropna()
+
+            # Create a DataFrame for plotting
+            rolling_volatility_df = pd.DataFrame({
+                'Date': rolling_volatility_ratio.index,
+                'Rolling Volatility Ratio': rolling_volatility_ratio.values
+            })
         
+            # Create Plotly figure for rolling volatility ratio
+            fig_volatility_ratio = px.line(
+                rolling_volatility_df,
+                x='Date',
+                y='Rolling Volatility Ratio',
+                title=f"Rolling Volatility Ratio ({ticker1} / {ticker2})",
+                labels={'Rolling Volatility Ratio': 'Volatility Ratio'}
+            )
+        
+            # Show chart in Streamlit
+            st.plotly_chart(fig_volatility_ratio)
+    
+                
             
+                

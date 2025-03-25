@@ -203,7 +203,7 @@ if st.session_state.pairs:
                 rolling_volatility_df,
                 x='Date',
                 y=['Rolling Volatility Ratio (Short-Term)', 'Rolling Volatility Ratio (Long-Term)'],
-                title=f"Rolling Volatility Ratio ({ticker1} / {ticker2})",
+                title=f"Rolling Volatility Ratio ({units1}.{ticker1} / {units2}.{{ticker2})",
                 labels={'value': 'Volatility Ratio', 'variable': 'Rolling Volatility Type'},
                 color_discrete_map={
                     'Rolling Volatility Ratio (Short-Term)': 'blue',
@@ -219,6 +219,7 @@ if st.session_state.pairs:
                     y=-0.3,
                     xanchor="center",
                     x=0.5
+                    title_text=None  # This removes the legend title
                 )
             )
             # Show chart in Streamlit

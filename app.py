@@ -164,11 +164,16 @@ if st.session_state.pairs:
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):
             # Calculate rolling volatility for each stock
-            rolling_volatility_ticker1 = returns[ticker1].rolling(window=short_vol_window).std().dropna()*1000
-            rolling_volatility_ticker2 = returns[ticker2].rolling(window=short_vol_window).std().dropna()
+            rolling_volatility_ticker1 = returns[ticker1].rolling(window=short_vol_window).std().dropna()*units1
+            rolling_volatility_ticker2 = returns[ticker2].rolling(window=short_vol_window).std().dropna()*units2
 
             st.dataframe(rolling_volatility_ticker1)
             st.dataframe(rolling_volatility_ticker2)
+
+            # Calculate rolling volatility ratio (ticker1 / ticker2)
+            rolling_volatility_ratio = rolling_volatility_ticker1 / rolling_volatility_ticker2
+
+            st.dataframe(rolling_volatility_ratio)
 
             
         

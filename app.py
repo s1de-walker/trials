@@ -172,7 +172,7 @@ if st.session_state.pairs:
 
         # User input for percentile value
         col1, col2, col3, col4, col5 = st.columns([2, 3, 1, 2, 3])
-        percentile2 = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=95.00, format="%.2f")
+        percentile2 = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=95.00, format="%.2f", key="percentile_input")
             
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):

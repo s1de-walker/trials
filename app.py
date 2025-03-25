@@ -292,5 +292,5 @@ if st.session_state.pairs:
 
 
             # Check if the spread crosses either of the thresholds
-            if volatility_ratio_gap_df['Volatility Ratio Gap'].iloc[-1] > upper_bound2 or volatility_ratio_gap_df['Volatility Ratio Gap'].iloc[-1] > lower_bound2:
+            if volatility_ratio_gap_df['Volatility Ratio Gap'].iloc[-1] > upper_bound2 or volatility_ratio_gap_df['Volatility Ratio Gap'].iloc[-1] < lower_bound2:
                 st.warning("🚨 Warning: The spread has crossed the threshold!")

@@ -158,6 +158,11 @@ if st.session_state.pairs:
             short_vol_window = st.number_input("Short-Term Window (Days):", min_value=1, max_value=date_range_days, value=10)
         with col2:
             long_vol_window = st.number_input("Long-Term Window (Days):", min_value=1, max_value=date_range_days, value=50)
-
+            
+        # Button to Calculate Rolling Volatility
+        if st.button("Calculate Rolling Volatility"):
+            data_rv = data["Pair Value"]
+            short_vol = data_rv.pct_change().rolling(short_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
+            long_vol = data_rv.pct_change().rolling(long_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
 
     

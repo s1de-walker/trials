@@ -56,7 +56,7 @@ with st.form("pairs_form"):
     
     submit = st.form_submit_button("Confirm Pair")
 
-    if ticker1 == ticker2:
+    if submit and ticker1 == ticker2:
             st.error("🚨 Error: Both tickers cannot be the same! Please select different stocks or ETFs.")
             st.stop()  # Stops execution immediately after showing error
 

@@ -103,8 +103,8 @@ if st.session_state.pairs:
         mean_ratio = data['Price Ratio'].mean()
         col1, col2, col3, col4, col5 = st.columns([2, 3, 1, 2, 3])
         percentile = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=95.00, format="%.2f")
-        lower_bound = np.percentile(data['Price Ratio'], 100-percentile)
-        upper_bound = np.percentile(data['Price Ratio'], percentile)
+        upper_bound = np.percentile(data['Price Ratio'], 100-percentile)
+        lower_bound = np.percentile(data['Price Ratio'], percentile)
     
         fig = px.line(data, x=data.index, y='Price Ratio', title=f"Price Ratio ({ticker1}/{ticker2})", line_shape='linear')
         fig.update_traces(line=dict(color='#A55B4B'))  # Custom orange-red color for better contrast

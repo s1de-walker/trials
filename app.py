@@ -143,3 +143,23 @@ if st.session_state.pairs:
         fig_spread = px.line(data, x=data.index, y='Pair Value', title=f"Pair Spread: {units1} {ticker1} - {units2} {ticker2}", line_shape='linear')
         fig_spread.update_traces(line=dict(color='#4A4A4A'))  
         st.plotly_chart(fig_spread)
+
+    # Pair spread
+    # ------------------------------------
+    with st.expander(f"Rolling Volatility"):
+        st.subheader("Is it getting riskier?")
+        st.caption("Select rolling windows for short-term and long-term volatility.")
+        
+        col1, col2 = st.columns(2)
+        # Check if the date difference is negative
+        if date_range_days < 0:
+            st.write("")
+        else:
+            # Proceed with your number input
+            with col1:
+                short_vol_window = st.number_input("Short-Term Window (Days):", min_value=1, max_value=date_range_days, value=10)
+            with col2:
+                long_vol_window = st.number_input("Long-Term Window (Days):", min_value=1, max_value=date_range_days, value=50)
+
+
+    

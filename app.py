@@ -194,4 +194,8 @@ if st.session_state.pairs:
         
             st.plotly_chart(fig, use_container_width=True)
 
-    
+            # Display warning if short-term volatility is greater than long-term volatility
+            if (vol_df['Short Vol'].iloc[-1] > vol_df['Long Vol'].iloc[-1]).any():
+                st.warning("⚠️ Short-term volatility is greater than long-term volatility!")
+        
+            

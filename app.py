@@ -178,6 +178,8 @@ if st.session_state.pairs:
 
             # Create the title with colored stock name
             plot_title = f"Rolling Volatility Trend for {units1} {ticker1} - {units2} {ticker2}"
+            # Custom colors
+            custom_colors = {"Short Vol": "red", "Long Vol": "#6b5d50"}
         
             # Create the line plot
             fig = px.line(vol_df, x="Date", y=["Short Vol", "Long Vol"], title=plot_title,

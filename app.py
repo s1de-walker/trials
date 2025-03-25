@@ -55,8 +55,14 @@ with st.form("pairs_form"):
     
     submit = st.form_submit_button("Confirm Pair")
 
+    if ticker1 == ticker2:
+            st.error("🚨 Error: Both tickers cannot be the same! Please select different stocks or ETFs.")
+            st.stop()  # Stops execution immediately after showing error
+
     if submit and ticker1 and ticker2:
         st.session_state.pairs.append({"Units 1": units1, "Stock/ETF 1": ticker1, "Units 2": units2, "Stock/ETF 2": ticker2})
+
+    
 st.divider()
 # Input End------------------------------------
 

@@ -172,6 +172,8 @@ if st.session_state.pairs:
 
             # Calculate rolling volatility ratio (ticker1 / ticker2)
             rolling_volatility_ratio = rolling_volatility_ticker1 / rolling_volatility_ticker2
+            # Rename column for the ratio
+            rolling_volatility_ratio = rolling_volatility_ratio.rename('Rolling Volatility Ratio')
 
             st.dataframe(rolling_volatility_ratio)
 

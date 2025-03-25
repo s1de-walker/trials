@@ -224,6 +224,44 @@ if st.session_state.pairs:
             )
             # Show chart in Streamlit
             st.plotly_chart(fig_volatility_ratio)
+
+
+            # ROLLING VOLATILITY GAP
+            # Calculate the gap between short-term and long-term rolling volatility ratios
+            volatility_ratio_gap = rolling_volatility_ratio_short - rolling_volatility_ratio_long
+            
+            # Create a DataFrame for plotting the gap
+            volatility_ratio_gap_df = pd.DataFrame({
+                'Date': volatility_ratio_gap.index,
+                'Volatility Ratio Gap': volatility_ratio_gap.values
+            })
+            
+            # Create Plotly figure for volatility ratio gap
+            fig_volatility_ratio_gap = px.line(
+                volatility_ratio_gap_df,
+                x='Date',
+                y='Volatility Ratio Gap',
+                title=f"Gap Between Short-Term and Long-Term Volatility Ratios ({ticker1} / {ticker2})",
+                labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
+            )
+            
+            # Update layout for legend position and other customizations
+            fig_volatility_ratio_gap.update_layout(
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=-0.3,
+                    xanchor="center",
+                    x=0.5,
+                    title_text=None  # This removes the legend title
+                )
+            )
+            
+            # Show chart in Streamlit
+            st.plotly_chart(fig_volatility_ratio_gap)
+            
+
+            
                     
                 
                     

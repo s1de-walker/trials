@@ -269,10 +269,10 @@ if st.session_state.pairs:
             fig_volatility_ratio_gap.update_traces(line=dict(color='#A55B4B'))  
 
             # Add horizontal lines for percentiles and mean
-            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom right")
-            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="grey", annotation_text="Lower Threshold", annotation_position="top right")
+            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom left")
+            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="grey", annotation_text="Lower Threshold", annotation_position="top left")
             mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
-            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey", annotation_text="Mean", annotation_position="bottom right")
+            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey", annotation_text="Mean", annotation_position="bottom left")
                 
         
             # Update layout for legend position and other customizations
@@ -289,3 +289,8 @@ if st.session_state.pairs:
     
             # Show chart in Streamlit
             st.plotly_chart(fig_volatility_ratio_gap)
+
+
+            # Check if the spread crosses either of the thresholds
+            if volatility_ratio_gap_df['Volatility Ratio Gap'].iloc[-1] > upper_bound2:
+                st.warning("Warning: The spread has crossed the upper threshold!")

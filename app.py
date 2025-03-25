@@ -81,6 +81,8 @@ if st.session_state.pairs:
         data = data[[ticker1,ticker2]]
         data['Price Ratio'] = data[ticker1]/data[ticker2]
         data["Pair Value"] = data[ticker1]*units1 - data[ticker2]*units2
+        returns = data.pct_change().dropna()
+        
         # Check if data is empty (invalid ticker)
         if data.empty or ticker1 not in data.columns or ticker2 not in data.columns:
             st.error("🚨 Error: One or both tickers are invalid. Please enter correct stock/ETF symbols.")
@@ -148,7 +150,7 @@ if st.session_state.pairs:
 
     # Pair spread
     # ------------------------------------
-    with st.expander(f"Rolling Volatility"):
+    with st.expander(f"Rolling Volatility Ratio"):
         st.subheader("Is it getting riskier?")
         st.caption("Select rolling windows for short-term and long-term volatility.")
         
@@ -161,42 +163,12 @@ if st.session_state.pairs:
             
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):
-            data_rv = data["Pair Value"]
-            short_vol = data_rv.pct_change().rolling(short_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
-            long_vol = data_rv.pct_change().rolling(long_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
+            # Calculate rolling volatility for each stock
+            rolling_volatility_ticker1 = returns[ticker1].rolling(window=short_vol_window).std().dropna()
+            rolling_volatility_ticker2 = returns[ticker2].rolling(window=short_vol_window).std().dropna()
 
-            # Ensure both are Series with the same index
-            short_vol = short_vol.loc[short_vol.index.intersection(long_vol.index)]
-            long_vol = long_vol.loc[long_vol.index.intersection(short_vol.index)]
-
-            # Create a DataFrame
-            vol_df = pd.DataFrame({
-                "Date": short_vol.index,
-                "Short Vol": short_vol.values,  # Ensure 1D
-                "Long Vol": long_vol.values     # Ensure 1D
-            }).dropna()
-
-            #st.dataframe(vol_df)
-            #st.dataframe(data_rv)
-
-            # Create the title with colored stock name
-            plot_title = f"Rolling Volatility Trend for {units1} {ticker1} - {units2} {ticker2}"
-            # Custom colors
-            custom_colors = {"Short Vol": "red", "Long Vol": "#6b5d50"}
-        
-            # Create the line plot
-            fig = px.line(vol_df, x="Date", y=["Short Vol", "Long Vol"], title=plot_title,
-                          labels={"value": "Volatility (%)", "Date": "Date", "variable": "Volatility Type"},
-                          color_discrete_map=custom_colors)
-        
-            fig.update_traces(mode="lines", line=dict(width=2))
-            fig.update_layout(showlegend=True, legend_title="Type")
-        
-            st.plotly_chart(fig, use_container_width=True)
-
-            # Display warning if short-term volatility is greater than long-term volatility
-            if (vol_df['Short Vol'].iloc[-1] > vol_df['Long Vol'].iloc[-1]).any():
-                st.warning("⚠️ Short-term volatility is greater than long-term volatility!")
+            st.dataframe(rolling_volatility_ticker1)
+            st.dataframe(rolling_volatility_ticker2)
 
             
         

@@ -218,7 +218,7 @@ if st.session_state.pairs:
                     yanchor="bottom",
                     y=-0.3,
                     xanchor="center",
-                    x=0.5
+                    x=0.5,
                     title_text=None  # This removes the legend title
                 )
             )

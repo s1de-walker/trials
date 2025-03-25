@@ -206,8 +206,8 @@ if st.session_state.pairs:
                 title=f"Rolling Volatility Ratio ({units1}.{ticker1} / {units2}.{ticker2})",
                 labels={'value': 'Volatility Ratio', 'variable': 'Rolling Volatility Type'},
                 color_discrete_map={
-                    'Rolling Volatility Ratio (Short-Term)': 'blue',
-                    'Rolling Volatility Ratio (Long-Term)': 'green'
+                    'Rolling Volatility Ratio (Short-Term)': 'red',
+                    'Rolling Volatility Ratio (Long-Term)': 'grey'
                 }
             )
             

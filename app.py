@@ -177,6 +177,7 @@ if st.session_state.pairs:
             }).dropna()
 
             st.dataframe(vol_df)
+            st.dataframe(data_rv)
 
             # Create the title with colored stock name
             plot_title = f"Rolling Volatility Trend for {units1} {ticker1} - {units2} {ticker2}"

@@ -82,6 +82,7 @@ if st.session_state.pairs:
         data['Price Ratio'] = data[ticker1]/data[ticker2]
         data["Pair Value"] = data[ticker1]*units1 - data[ticker2]*units2
         returns = data.pct_change().dropna()
+        cm_returns = (returns + 1).cumprod() - 1
         
         # Check if data is empty (invalid ticker)
         if data.empty or ticker1 not in data.columns or ticker2 not in data.columns:
@@ -101,8 +102,8 @@ if st.session_state.pairs:
         st.error(f"🚨 Error fetching historical data: {e}")
         st.stop()  # Stops execution immediately after showing error
         
-    returns = data[[ticker1, ticker2]].pct_change().dropna()
-    cm_returns = (returns + 1).cumprod() - 1
+    #returns = data[[ticker1, ticker2]].pct_change().dropna()
+    
 
     # Market Summary
     # ------------------------------------
@@ -110,6 +111,9 @@ if st.session_state.pairs:
         col1, col2 = st.columns(2)
         col1.metric(f"{ticker1}", f"${data[ticker1].iloc[-1]:.2f}", f"{returns[ticker1].iloc[-1] * 100:.2f}%")
         col2.metric(f"{ticker2}", f"${data[ticker2].iloc[-1]:.2f}", f"{returns[ticker2].iloc[-1] * 100:.2f}%")
+
+        st.dataframe(data)
+        st.dataframe(returns)
     # Price Ratio
     # ------------------------------------
     with st.expander(f"Price Ratio"):

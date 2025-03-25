@@ -253,34 +253,7 @@ if st.session_state.pairs:
                 labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
             )
             
-            # Add horizontal lines for percentiles and mean
-            fig_volatility_ratio_gap.add_shape(
-                type="line",
-                x0=volatility_ratio_gap_df['Date'].min(),
-                x1=volatility_ratio_gap_df['Date'].max(),
-                y0=upper_threshold,
-                y1=upper_threshold,
-                line=dict(dash="dash", color="green"),
-                name="Upper Threshold"
-            )
-            fig_volatility_ratio_gap.add_shape(
-                type="line",
-                x0=volatility_ratio_gap_df['Date'].min(),
-                x1=volatility_ratio_gap_df['Date'].max(),
-                y0=lower_threshold,
-                y1=lower_threshold,
-                line=dict(dash="dash", color="red"),
-                name="Lower Threshold"
-            )
-            fig_volatility_ratio_gap.add_shape(
-                type="line",
-                x0=volatility_ratio_gap_df['Date'].min(),
-                x1=volatility_ratio_gap_df['Date'].max(),
-                y0=mean_value,
-                y1=mean_value,
-                line=dict(dash="dot", color="blue"),
-                name="Mean"
-            )
+            
     
             # Update layout for legend position and other customizations
             fig_volatility_ratio_gap.update_layout(

@@ -204,10 +204,11 @@ if st.session_state.pairs:
                 x='Date',
                 y=['Rolling Volatility Ratio (Short-Term)', 'Rolling Volatility Ratio (Long-Term)'],
                 title=f"Rolling Volatility Ratio ({ticker1} / {ticker2})",
-                labels={'value': 'Volatility Ratio', 'variable': 'Rolling Volatility Type'}
+                labels={'value': 'Volatility Ratio', 'variable': 'Rolling Volatility Type'},
                 color_discrete_map={
-                'Rolling Volatility Ratio (Short-Term)': 'red',
-                'Rolling Volatility Ratio (Long-Term)': 'green'
+                    'Rolling Volatility Ratio (Short-Term)': 'blue',
+                    'Rolling Volatility Ratio (Long-Term)': 'green'
+                }
             )
             
             # Update layout for legend position and other customizations

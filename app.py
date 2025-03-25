@@ -270,14 +270,14 @@ if st.session_state.pairs:
         
             # Lower Bound with annotation on the left
             fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="#F2F2F2", line_width=1.5)
-            fig_volatility_ratio_gap.add_annotation(
+            fig_volatility_ratio_gap.add_annotation(x = volatility_ratio_gap_df.index,
                 y=lower_bound2, text=f"{percentile2}th Percentile",
                 showarrow=False, xanchor="left", font=dict(color="grey", size=10), bgcolor="black"
             )
         
             # Upper Bound with annotation on the left
             fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="#F2F2F2", line_width=1.5)
-            fig_volatility_ratio_gap.add_annotation(
+            fig_volatility_ratio_gap.add_annotation(x = volatility_ratio_gap_df.index,
                 y=upper_bound2, text=f"{100 - percentile2}th Percentile",
                 showarrow=False, xanchor="left", font=dict(color="grey", size=10), bgcolor="black"
             )

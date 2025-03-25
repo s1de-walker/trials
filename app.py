@@ -268,10 +268,10 @@ if st.session_state.pairs:
             )
 
             # Add horizontal lines for percentiles and mean
-            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="line", line_color="green", annotation_text="Upper Threshold", annotation_position="bottom right")
-            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="line", line_color="red", annotation_text="Lower Threshold", annotation_position="top right")
+            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom right")
+            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="grey", annotation_text="Lower Threshold", annotation_position="top right")
             mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
-            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="blue", annotation_text="Mean", annotation_position="bottom right")
+            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey", annotation_text="Mean", annotation_position="bottom right")
                 
         
             # Update layout for legend position and other customizations

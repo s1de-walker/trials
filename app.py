@@ -164,40 +164,51 @@ if st.session_state.pairs:
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):
             # Calculate rolling volatility for each stock
-            rolling_volatility_ticker1 = returns[ticker1].rolling(window=short_vol_window).std().dropna()*units1
-            rolling_volatility_ticker2 = returns[ticker2].rolling(window=short_vol_window).std().dropna()*units2
+            rolling_volatility_ticker1_short = returns[ticker1].rolling(window=short_vol_window).std().dropna()*units1
+            rolling_volatility_ticker2_short = returns[ticker2].rolling(window=short_vol_window).std().dropna()*units2
+
+            # Calculate long-term rolling volatility for each stock
+            rolling_volatility_ticker1_long = returns[ticker1].rolling(window=long_vol_window).std().dropna() * units1
+            rolling_volatility_ticker2_long = returns[ticker2].rolling(window=long_vol_window).std().dropna() * units2
 
             #st.dataframe(rolling_volatility_ticker1)
             #st.dataframe(rolling_volatility_ticker2)
 
             # Calculate rolling volatility ratio (ticker1 / ticker2)
-            rolling_volatility_ratio = rolling_volatility_ticker1 / rolling_volatility_ticker2
+            #rolling_volatility_ratio = rolling_volatility_ticker1 / rolling_volatility_ticker2
             
             # Rename column for the ratio
-            rolling_volatility_ratio = rolling_volatility_ratio.rename('Rolling Volatility Ratio')
+            #rolling_volatility_ratio = rolling_volatility_ratio.rename('Rolling Volatility Ratio')
             #st.dataframe(rolling_volatility_ratio)
+
+            # Calculate rolling volatility ratio (ticker1 / ticker2)
+            rolling_volatility_ratio_short = rolling_volatility_ticker1_short / rolling_volatility_ticker2_short
+            rolling_volatility_ratio_long = rolling_volatility_ticker1_long / rolling_volatility_ticker2_long
             
             # Drop NaN values to start the chart from where the data is available
-            rolling_volatility_ratio = rolling_volatility_ratio.dropna()
+            rolling_volatility_ratio_short = rolling_volatility_ratio_short.dropna()
+            rolling_volatility_ratio_long = rolling_volatility_ratio_long.dropna()
+            
+            
 
             # Create a DataFrame for plotting
             rolling_volatility_df = pd.DataFrame({
-                'Date': rolling_volatility_ratio.index,
-                'Rolling Volatility Ratio': rolling_volatility_ratio.values
+                'Date': rolling_volatility_ratio_short.index,
+                'Rolling Volatility Ratio (Short-Term)': rolling_volatility_ratio_short.values,
+                'Rolling Volatility Ratio (Long-Term)': rolling_volatility_ratio_long.reindex(rolling_volatility_ratio_short.index).values
             })
         
             # Create Plotly figure for rolling volatility ratio
             fig_volatility_ratio = px.line(
                 rolling_volatility_df,
                 x='Date',
-                y='Rolling Volatility Ratio',
+                y=['Rolling Volatility Ratio (Short-Term)', 'Rolling Volatility Ratio (Long-Term)'],
                 title=f"Rolling Volatility Ratio ({ticker1} / {ticker2})",
-                labels={'Rolling Volatility Ratio': 'Volatility Ratio'}
+                labels={'value': 'Volatility Ratio', 'variable': 'Rolling Volatility Type'}
             )
         
             # Show chart in Streamlit
             st.plotly_chart(fig_volatility_ratio)
-    
+                    
                 
-            
-                
+                    

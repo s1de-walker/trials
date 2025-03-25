@@ -102,7 +102,7 @@ if st.session_state.pairs:
     with st.expander(f"Price Ratio"):
         mean_ratio = data['Price Ratio'].mean()
         col1, col2, col3, col4, col5 = st.columns([2, 3, 1, 2, 3])
-        percentile = col1.number_input("Select Percentile:", min_value=0.01, max_value=99.99, value=95.00, format="%.2f")
+        percentile = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=95.00, format="%.2f")
         lower_bound = np.percentile(data['Price Ratio'], 100-percentile)
         upper_bound = np.percentile(data['Price Ratio'], percentile)
     

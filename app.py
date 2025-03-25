@@ -172,7 +172,7 @@ if st.session_state.pairs:
 
         # User input for percentile value
         col1, col2, col3, col4, col5 = st.columns([2, 3, 1, 2, 3])
-        percentile2 = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=95.00, format="%.2f", key="percentile_input")
+        percentile2 = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=90.00, format="%.2f", key="percentile_input")
             
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):
@@ -266,6 +266,7 @@ if st.session_state.pairs:
                 title=f"Gap Between Short-Term and Long-Term Volatility Ratios ({units1}.{ticker1} / {units2}.{ticker2})",
                 labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
             )
+            fig_volatility_ratio_gap.update_traces(line=dict(color='#4A4A4A'))  
 
             # Add horizontal lines for percentiles and mean
             fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom right")

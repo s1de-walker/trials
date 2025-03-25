@@ -34,6 +34,7 @@ end_date = col_date2.date_input("End Date", datetime.strptime(default_end, '%Y-%
 # Ensure start_date is before end_date
 if start_date >= end_date:
     st.error("🚨 Start Date must be before End Date!")
+    st.stop()  # Stops execution immediately after showing error
 
 # Calculate month difference
 st.write(f"Selected period: **{(end_date.year - start_date.year) * 12 + (end_date.month - start_date.month)} months**")
@@ -81,6 +82,7 @@ if st.session_state.pairs:
         
     except Exception as e:
         st.error(f"🚨 Error fetching historical data: {e}")
+        st.stop()  # Stops execution immediately after showing error
         
     returns = data[[ticker1, ticker2]].pct_change().dropna()
     cm_returns = (returns + 1).cumprod() - 1

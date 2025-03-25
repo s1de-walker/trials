@@ -205,8 +205,21 @@ if st.session_state.pairs:
                 y=['Rolling Volatility Ratio (Short-Term)', 'Rolling Volatility Ratio (Long-Term)'],
                 title=f"Rolling Volatility Ratio ({ticker1} / {ticker2})",
                 labels={'value': 'Volatility Ratio', 'variable': 'Rolling Volatility Type'}
+                color_discrete_map={
+                'Rolling Volatility Ratio (Short-Term)': 'red',
+                'Rolling Volatility Ratio (Long-Term)': 'green'
             )
-        
+            
+            # Update layout for legend position and other customizations
+            fig_volatility_ratio.update_layout(
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=-0.3,
+                    xanchor="center",
+                    x=0.5
+                )
+            )
             # Show chart in Streamlit
             st.plotly_chart(fig_volatility_ratio)
                     

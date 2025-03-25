@@ -160,6 +160,9 @@ if st.session_state.pairs:
             short_vol_window = st.number_input("Short-Term Window (Days):", min_value=1, max_value=date_range_days, value=10)
         with col2:
             long_vol_window = st.number_input("Long-Term Window (Days):", min_value=1, max_value=date_range_days, value=50)
+
+        # User input for percentile value
+        percentile_value = st.number_input("Percentile Value (50 to 99.99):", min_value=50.0, max_value=99.99, value=95.0)
             
         # Button to Calculate Rolling Volatility
         if st.button("Calculate Annualized Rolling Volatility"):
@@ -235,6 +238,11 @@ if st.session_state.pairs:
                 'Date': volatility_ratio_gap.index,
                 'Volatility Ratio Gap': volatility_ratio_gap.values
             })
+
+            # Calculate percentiles and mean
+            upper_threshold = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], percentile_value)
+            lower_threshold = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], 100 - percentile_value)
+            mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
             
             # Create Plotly figure for volatility ratio gap
             fig_volatility_ratio_gap = px.line(
@@ -245,6 +253,11 @@ if st.session_state.pairs:
                 labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
             )
             
+            # Add horizontal lines for percentiles and mean
+            fig_volatility_ratio_gap.add_hline(y=upper_threshold, line_dash="dash", line_color="green", annotation_text="Upper Threshold", annotation_position="bottom right")
+            fig_volatility_ratio_gap.add_hline(y=lower_threshold, line_dash="dash", line_color="red", annotation_text="Lower Threshold", annotation_position="top right")
+            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="blue", annotation_text="Mean", annotation_position="bottom right")
+    
             # Update layout for legend position and other customizations
             fig_volatility_ratio_gap.update_layout(
                 legend=dict(
@@ -256,12 +269,7 @@ if st.session_state.pairs:
                     title_text=None  # This removes the legend title
                 )
             )
-            
+    
             # Show chart in Streamlit
             st.plotly_chart(fig_volatility_ratio_gap)
-            
-
-            
-                    
-                
-                    
+                        

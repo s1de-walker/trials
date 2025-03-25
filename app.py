@@ -112,8 +112,8 @@ if st.session_state.pairs:
         col1.metric(f"{ticker1}", f"${data[ticker1].iloc[-1]:.2f}", f"{returns[ticker1].iloc[-1] * 100:.2f}%")
         col2.metric(f"{ticker2}", f"${data[ticker2].iloc[-1]:.2f}", f"{returns[ticker2].iloc[-1] * 100:.2f}%")
 
-        st.dataframe(data)
-        st.dataframe(returns)
+        #st.dataframe(data)
+        #st.dataframe(returns)
     # Price Ratio
     # ------------------------------------
     with st.expander(f"Price Ratio"):

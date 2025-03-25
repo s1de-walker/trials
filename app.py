@@ -165,6 +165,10 @@ if st.session_state.pairs:
             short_vol = data_rv.pct_change().rolling(short_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
             long_vol = data_rv.pct_change().rolling(long_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
 
+            # Ensure both are Series with the same index
+            short_vol = short_vol.loc[short_vol.index.intersection(long_vol.index)]
+            long_vol = long_vol.loc[long_vol.index.intersection(short_vol.index)]
+
             # Create a DataFrame
             vol_df = pd.DataFrame({
                 "Date": short_vol.index,

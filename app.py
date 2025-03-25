@@ -165,4 +165,24 @@ if st.session_state.pairs:
             short_vol = data_rv.pct_change().rolling(short_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
             long_vol = data_rv.pct_change().rolling(long_vol_window).std().dropna().squeeze() * np.sqrt(250) * 100
 
+            # Create a DataFrame
+            vol_df = pd.DataFrame({
+                "Date": short_vol.index,
+                "Short Vol": short_vol.values,  # Ensure 1D
+                "Long Vol": long_vol.values     # Ensure 1D
+            }).dropna()
+
+            # Create the title with colored stock name
+            plot_title = f"Rolling Volatility Trend for {stock_name_colored}"
+        
+            # Create the line plot
+            fig = px.line(vol_df, x="Date", y=["Short Vol", "Long Vol"], title=plot_title,
+                          labels={"value": "Volatility (%)", "Date": "Date", "variable": "Volatility Type"},
+                          color_discrete_map=custom_colors)
+        
+            fig.update_traces(mode="lines", line=dict(width=2))
+            fig.update_layout(showlegend=True, legend_title="Type")
+        
+            st.plotly_chart(fig, use_container_width=True)
+
     

@@ -249,6 +249,7 @@ if st.session_state.pairs:
                 'Volatility Ratio Gap': volatility_ratio_gap.values
             })
 
+            volatility_ratio_gap_df = volatility_ratio_gap_df.dropna()
             
             lower_bound2 = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], 100-percentile2)
             upper_bound2 = np.percentile(volatility_ratio_gap_df['Volatility Ratio Gap'], percentile2)

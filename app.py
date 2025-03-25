@@ -266,7 +266,7 @@ if st.session_state.pairs:
                 title=f"Gap Between Short-Term and Long-Term Volatility Ratios ({units1}.{ticker1} / {units2}.{ticker2})",
                 labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
             )
-            fig_volatility_ratio_gap.update_traces(line=dict(color='#4A4A4A'))  
+            fig_volatility_ratio_gap.update_traces(line=dict(color='#A55B4B'))  
 
             # Add horizontal lines for percentiles and mean
             fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom right")

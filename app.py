@@ -241,7 +241,7 @@ if st.session_state.pairs:
                 volatility_ratio_gap_df,
                 x='Date',
                 y='Volatility Ratio Gap',
-                title=f"Gap Between Short-Term and Long-Term Volatility Ratios ({ticker1} / {ticker2})",
+                title=f"Gap Between Short-Term and Long-Term Volatility Ratios ({units1}.{ticker1} / {units2}.{ticker2})",
                 labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
             )
             

@@ -272,7 +272,7 @@ if st.session_state.pairs:
             fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom left")
             fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="grey", annotation_text="Lower Threshold", annotation_position="top left")
             mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
-            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey", annotation_text="Mean", annotation_position="center left")
+            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey", annotation_text="Mean", annotation_position="top left")
                 
         
             # Update layout for legend position and other customizations

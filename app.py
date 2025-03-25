@@ -266,22 +266,14 @@ if st.session_state.pairs:
                 title=f"Gap Between Short-Term and Long-Term Volatility Ratios ({units1}.{ticker1} / {units2}.{ticker2})",
                 labels={'Volatility Ratio Gap': 'Volatility Ratio Gap'}
             )
-            
+
+            # Add horizontal lines for percentiles and mean
+            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="dash", line_color="green", annotation_text="Upper Threshold", annotation_position="bottom right")
+            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="dash", line_color="red", annotation_text="Lower Threshold", annotation_position="top right")
+            mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
+            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="blue", annotation_text="Mean", annotation_position="bottom right")
+                
         
-            # Lower Bound with annotation on the left
-            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="#F2F2F2", line_width=1.5)
-            fig_volatility_ratio_gap.add_annotation(x = volatility_ratio_gap_df.index,
-                y=lower_bound2, text=f"{percentile2}th Percentile",
-                showarrow=False, xanchor="left", font=dict(color="grey", size=10), bgcolor="black"
-            )
-        
-            # Upper Bound with annotation on the left
-            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="#F2F2F2", line_width=1.5)
-            fig_volatility_ratio_gap.add_annotation(x = volatility_ratio_gap_df.index,
-                y=upper_bound2, text=f"{100 - percentile2}th Percentile",
-                showarrow=False, xanchor="left", font=dict(color="grey", size=10), bgcolor="black"
-            )
-    
             # Update layout for legend position and other customizations
             fig_volatility_ratio_gap.update_layout(
                 legend=dict(

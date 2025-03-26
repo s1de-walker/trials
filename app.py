@@ -406,7 +406,7 @@ if st.session_state.pairs:
 
 
         st.write(" ")
-        st.subheader("Cointegration Residuals)
+        st.subheader("Cointegration Residuals")
         st.markdown("""
         ###### <span style="color:#A55B4B">Cointegration residuals</span> = Deviations of actual values from predicted relationship
         """, unsafe_allow_html=True)

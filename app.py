@@ -353,6 +353,43 @@ if st.session_state.pairs:
         
         # Y = β . X + c + error
 
+        # Add constant term for intercept
+        X = sm.add_constant(X) # This adds a column of ones to the predictor variables X
+        
+        # Run OLS regression
+        model = sm.OLS(Y, X).fit()
+
+        # Extract key regression metrics
+        r_squared = model.rsquared
+        beta = model.params[ticker1]
+
+        # Compute ADF test on residual (spread)
+        spread = returns[ticker2] - beta * returns[ticker1]
+        adf_pvalue = adfuller(spread)[1]
+
+        # Display results
+        # Create three columns
+        col1, col2, col3 = st.columns(3)
+
+        # Display R-squared in the first column
+        col1.metric(label="R-Squared", value=f"{r_squared:.3f}")
+        # Use Streamlit's built-in color formatting
+        col1.markdown(f"*:grey[Relationship Strength: {ticker1} explains {r_squared*100:.0f}% of the variation in {ticker2}]*")
+        
+        # Display OLS Beta in the second column
+        col2.metric(label="OLS Beta", value=f"{beta:.3f}")
+        col2.write(f"*:grey[Effect of {ticker1} on {ticker2}: A 1-unit increase in {ticker1} is associated with a {beta:.2f} increase in {ticker2}.\n]*")
+        
+        # Display ADF Test P-Value in the third column
+        col3.metric(label="ADF P-Value", value=f"{adf_pvalue:.3f}")
+        
+        if adf_pvalue < 0.05:
+            col3.write(f"*:grey[✅ The spread is **stationary** (p-value: {adf_pvalue:.3f})] :grey[. It means the SPREAD has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
+        else:
+            col3.write(f"*❌ The spread is **non-stationary** (p-value: {adf_pvalue:.3f})*")
+    
+            
+
         
         
         

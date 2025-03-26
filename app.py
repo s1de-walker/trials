@@ -424,7 +424,7 @@ if st.session_state.pairs:
         fig_cr = px.line(df_coint_plot, x="Time", y="Residuals", title="Cointegration Residuals", color_discrete_sequence=['#A55B4B'])
 
         # Add a grey horizontal dotted line at y=0
-        fig.add_shape(
+        fig_cr.add_shape(
             type="line",
             x0=df_coint_plot["Time"].min(),
             x1=df_coint_plot["Time"].max(),

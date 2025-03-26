@@ -419,8 +419,13 @@ if st.session_state.pairs:
         
         # Convert residuals to DataFrame for plotting
         df_coint_plot = pd.DataFrame({"Time": returns.index, "Residuals": df_coint})
+
+        # Plot the residuals with custom color
+        fig_cr = px.line(df_coint_plot, x="Time", y="Residuals", title="Cointegration Residuals", color_discrete_sequence=['#A55B4B'])
         
-        
+        # Display the plot in Streamlit
+        st.plotly_chart(fig_cr)
+                
                 
 
         

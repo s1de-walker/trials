@@ -347,9 +347,8 @@ if st.session_state.pairs:
     # ------------------------------------
     with st.expander(f"Cointegration"):
         st.subheader("Cointegration")
-        st.caption("Cointegration is a a statistical property.")
-        st.write("Cointegration occurs when 2 non-stationary time series move together in a way that they form a **stationary linear combination** in the long run.")
-        st.write("")
+        st.caption("Cointegration is a a statistical property. It occurs when 2 non-stationary time series move together in a way that they form a **stationary linear combination** in the long run.")
+   
         st.caption("Linear combination:")
         st.write(f"{ticker2} = (OLS β) . {ticker1} + c + ε")
         st.caption("c = intercept, ε = residuals")
@@ -418,6 +417,7 @@ if st.session_state.pairs:
         
         # Convert residuals to DataFrame for plotting
         df_coint_plot = pd.DataFrame({"Time": returns.index, "Residuals": df_coint})
+        
         
                 
 

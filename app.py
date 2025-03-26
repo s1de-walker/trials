@@ -323,7 +323,8 @@ if st.session_state.pairs:
 
         #st.dataframe(rolling_beta)
 
-        fig_rb = px.line(rolling_beta, legend = False, title=f"Rolling Beta of {ticker1} on {ticker2} ({window}-day window)", color_discrete_sequence=['#A55B4B'])
+        fig_rb = px.line(rolling_beta, title=f"Rolling Beta of {ticker1} on {ticker2} ({window}-day window)", color_discrete_sequence=['#A55B4B'])
+        fig_rb.update_layout(showlegend=False)  # Remove the legend
         st.plotly_chart(fig_rb)
             
             

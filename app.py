@@ -306,7 +306,7 @@ if st.session_state.pairs:
         # Calculate rolling beta
         #st.dataframe(returns)
         returns_rb = returns[[ticker1, ticker2]]
-        st.dataframe(returns_rb)
+        #st.dataframe(returns_rb)
 
         col1, col2 = st.columns(2)
         # Proceed with your number input
@@ -321,7 +321,7 @@ if st.session_state.pairs:
         rolling_beta = rolling_cov / rolling_var
         rolling_beta = rolling_beta.dropna()
 
-        st.dataframe(rolling_beta)
+        #st.dataframe(rolling_beta)
 
         fig_rb = px.line(rolling_beta, legend = False, title=f"Rolling Beta of {ticker1} on {ticker2} ({window}-day window)", color_discrete_sequence=['#A55B4B'])
         st.plotly_chart(fig_rb)

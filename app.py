@@ -372,6 +372,19 @@ if st.session_state.pairs:
         spread = returns[ticker2] - beta * returns[ticker1]
         adf_pvalue = adfuller(spread)[1]
 
+        # Create Altair Scatter Plot
+        #-------------------------------------------------------------------------
+        scatter_plot = alt.Chart(returns.reset_index()).mark_circle(size=60).encode(
+            x=alt.X(f"{ticker1}:Q", title=f"{ticker1} Daily Return", axis=alt.Axis(format=".2%")),
+            y=alt.Y(f"{ticker2}:Q", title=f"{ticker2} Daily Return", axis=alt.Axis(format=".2%")),
+            tooltip=["Date:T", f"{ticker1}:Q", f"{ticker2}:Q"]
+        ).properties(
+            title="Daily Returns Scatter Plot"
+        )
+        
+        # Show the plot in Streamlit
+        st.altair_chart(scatter_plot, use_container_width=True)
+
         # Display results
         # Create three columns
         col1, col2, col3 = st.columns(3)

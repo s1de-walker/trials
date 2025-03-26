@@ -304,6 +304,8 @@ if st.session_state.pairs:
     # ------------------------------------
     with st.expander(f"Rolling Beta"):
         # Calculate rolling beta
-        st.dataframe(returns)
+        #st.dataframe(returns)
+        returns_rb = returns[[ticker1, ticker2]]
+        st.dataframe(returns_rb)
             
             

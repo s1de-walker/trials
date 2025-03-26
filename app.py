@@ -300,10 +300,10 @@ if st.session_state.pairs:
                 st.warning("🚨 Warning: The spread has crossed the threshold!")
 
 
-        # Pair spread
-        # ------------------------------------
-        with st.expander(f"Rolling Beta"):
-            # Calculate rolling beta
-            st.dataframe(returns)
+    # Rolling Beta
+    # ------------------------------------
+    with st.expander(f"Rolling Beta"):
+        # Calculate rolling beta
+        st.dataframe(returns)
             
             

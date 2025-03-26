@@ -411,7 +411,7 @@ if st.session_state.pairs:
         ###### <span style="color:#A55B4B">Cointegration residuals</span> = Deviations of actual values from predicted relationship
         """, unsafe_allow_html=True)
         #-------------------------------------------------------------------------
-        st.caption("*How far the spread is from its **\"fair value\"***")
+        st.caption("*How far the spread is from its **\"fair value\"** as per the stationary linear relationship.*")
         
         # Compute the cointegration residuals
         #-------------------------------------------------------------------------

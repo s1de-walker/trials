@@ -333,7 +333,7 @@ if st.session_state.pairs:
             x1=rolling_beta.index.max(),
             y0=1,
             y1=1,
-            line=dict(color="white", width=2, dash="dash")
+            line=dict(color="white", width=2, dash="solid")
         )
 
         st.plotly_chart(fig_rb)

@@ -422,6 +422,16 @@ if st.session_state.pairs:
 
         # Plot the residuals with custom color
         fig_cr = px.line(df_coint_plot, x="Time", y="Residuals", title="Cointegration Residuals", color_discrete_sequence=['#A55B4B'])
+
+        # Add a grey horizontal dotted line at y=0
+        fig.add_shape(
+            type="line",
+            x0=df_coint_plot["Time"].min(),
+            x1=df_coint_plot["Time"].max(),
+            y0=0,
+            y1=0,
+            line=dict(color="grey", width=2, dash="dot")
+        )
         
         # Display the plot in Streamlit
         st.plotly_chart(fig_cr)

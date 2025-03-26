@@ -322,5 +322,8 @@ if st.session_state.pairs:
         rolling_beta = rolling_beta.dropna()
 
         st.dataframe(rolling_beta)
+
+        fig_rb = px.line(rolling_beta, title=f"Rolling Beta of {ticker1} on {ticker2) ({rolling_window}-day window)")
+        st.plotly_chart(fig_rb)
             
             

@@ -343,6 +343,15 @@ if st.session_state.pairs:
             y1=mean_rolling_beta,
             line=dict(color="white", width=2, dash="solid")
         )
+        # Add label for the mean line
+        fig_rb.add_annotation(
+            x=rolling_beta.index.min(),
+            y=mean_rolling_beta,
+            text="Mean",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="grey")
+        )
 
         st.plotly_chart(fig_rb)
 

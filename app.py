@@ -348,8 +348,9 @@ if st.session_state.pairs:
     with st.expander(f"Cointegration"):
         st.subheader("Cointegration")
         st.caption("Cointegration is a a statistical property.")
-        st.caption("Cointegration occurs when 2 non-stationary time series move together in a way that they form a **stationary linear combination** in the long run.")
-        st.write("Linear combination:")
+        st.write("Cointegration occurs when 2 non-stationary time series move together in a way that they form a **stationary linear combination** in the long run.")
+        st.write("")
+        st.caption("Linear combination:")
         st.write(f"{ticker2} = (OLS β) . {ticker1} + c + ε")
         st.caption("c = intercept, ε = residuals")
         

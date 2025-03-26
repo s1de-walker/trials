@@ -398,7 +398,7 @@ if st.session_state.pairs:
         
         if adf_pvalue < 0.05:
             col3.write(f"*✅ The spread is **STATIONARY**. *")
-            clo3.write("*:grey[It means the spread has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
+            col3.write("* :grey[It means the spread has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
         else:
             col3.write(f"*❌ The spread is **non-stationary** (p-value: {adf_pvalue:.3f})*")
 

@@ -9,6 +9,11 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 
+# Import the statsmodels module for regression and the adfuller function
+# Import statsmodels.formula.api
+import statsmodels.api as sm
+from statsmodels.tsa.stattools import adfuller
+
 
 # Input
 # ------------------------------------

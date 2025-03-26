@@ -430,7 +430,7 @@ if st.session_state.pairs:
             x1=df_coint_plot["Time"].max(),
             y0=0,
             y1=0,
-            line=dict(color="grey", width=2, dash="solid")
+            line=dict(color="grey", width=4, dash="solid")
         )
         
         # Display the plot in Streamlit

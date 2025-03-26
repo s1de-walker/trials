@@ -42,7 +42,7 @@ if start_date >= end_date:
     st.stop()  # Stops execution immediately after showing error
 
 # Calculate month difference
-st.write(f"Selected period: **{(end_date.year - start_date.year) * 12 + (end_date.month - start_date.month)} months**")
+st.caption(f"Selected period: **{(end_date.year - start_date.year) * 12 + (end_date.month - start_date.month)} months**")
 
 date_range_days = (end_date - start_date).days  # Calculate total available days
 

@@ -447,6 +447,13 @@ if st.session_state.pairs:
         
         # Display the plot in Streamlit
         st.plotly_chart(fig_cr)
+
+
+        # Trading signal
+        if df_coint.iloc[-1] < lower_bound3:
+            st.success("Trading Signal: Buy (Residuals are below the lower threshold)")
+        elif df_coint.iloc[-1] > upper_bound3:
+            st.error("Trading Signal: Sell (Residuals are above the upper threshold)")
                 
                 
 

@@ -437,13 +437,13 @@ if st.session_state.pairs:
             x1=df_coint_plot["Time"].max(),
             y0=0,
             y1=0,
-            line=dict(color="grey", width=2, dash="solid")
+            line=dict(color="grey", width=2, dash="dot")
         )
 
 
          # Add horizontal lines for percentiles and mean
-        fig_cr.add_hline(y=upper_bound3, line_dash="solid", line_color="grey")
-        fig_cr.add_hline(y=lower_bound3, line_dash="solid", line_color="grey")
+        fig_cr.add_hline(y=upper_bound3, line_dash="solid", line_color="white")
+        fig_cr.add_hline(y=lower_bound3, line_dash="solid", line_color="white")
         
         # Display the plot in Streamlit
         st.plotly_chart(fig_cr)

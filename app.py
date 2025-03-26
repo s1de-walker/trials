@@ -323,7 +323,7 @@ if st.session_state.pairs:
 
         st.dataframe(rolling_beta)
 
-        fig_rb = px.line(rolling_beta, title=f"Rolling Beta of {ticker1} on {ticker2} ({window}-day window)")
+        fig_rb = px.line(rolling_beta, legend = False, title=f"Rolling Beta of {ticker1} on {ticker2} ({window}-day window)")
         st.plotly_chart(fig_rb)
             
             

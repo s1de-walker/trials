@@ -8,6 +8,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
+import altair as alt
 
 # Import the statsmodels module for regression and the adfuller function
 # Import statsmodels.formula.api

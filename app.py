@@ -343,8 +343,8 @@ if st.session_state.pairs:
     with st.expander(f"Cointegration"):
         st.write(f"{ticker2} = (OLS β) . {ticker1} + c + ε")
         st.caption("c = intercept, ε = residuals")
-        st.caption("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship")
-        st.caption("How far the spread is from its **fair value**")
+        st.caption("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
+        st.caption("so ε = How far the spread is from its **fair value**")
         # OLS Regression
         # Prepare independent (X) and dependent (Y) variables
         

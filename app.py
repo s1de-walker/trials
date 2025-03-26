@@ -348,10 +348,10 @@ if st.session_state.pairs:
     with st.expander(f"Cointegration"):
         st.markdown("##### When 2 non-stationary time series move together in a way that they form a stationary linear combination in the long run = **COINTEGRATION**.")
         st.caption("Cointegration is a a statistical property.")
+        st.write("Linear combination:")
         st.write(f"{ticker2} = (OLS β) . {ticker1} + c + ε")
         st.caption("c = intercept, ε = residuals")
-        st.caption("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
-        st.caption("so, ε = How far the spread is from its **fair value**")
+        
         # OLS Regression
         # Prepare independent (X) and dependent (Y) variables
         
@@ -397,7 +397,7 @@ if st.session_state.pairs:
         col3.metric(label="ADF P-Value", value=f"{adf_pvalue:.3f}")
         
         if adf_pvalue < 0.05:
-            col3.write(f"*:grey[✅ The spread is **stationary** (p-value: {adf_pvalue:.3f})] :grey[. It means the SPREAD has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
+            col3.write(f"*:white[✅ The spread is **stationary** (p-value: {adf_pvalue:.3f})] :grey[. It means the SPREAD has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
         else:
             col3.write(f"*❌ The spread is **non-stationary** (p-value: {adf_pvalue:.3f})*")
 
@@ -406,6 +406,8 @@ if st.session_state.pairs:
         st.write(" ")
         st.markdown("### Cointegration residuals")
         #-------------------------------------------------------------------------
+        st.write("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
+        st.caption("so, ε = How far the spread is from its **fair value**")
         
         # Compute the cointegration residuals
         #-------------------------------------------------------------------------

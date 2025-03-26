@@ -8,7 +8,6 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
-import altair as alt
 
 # Import the statsmodels module for regression and the adfuller function
 # Import statsmodels.formula.api
@@ -373,18 +372,11 @@ if st.session_state.pairs:
         spread = returns[ticker2] - beta * returns[ticker1]
         adf_pvalue = adfuller(spread)[1]
 
-        # Create Altair Scatter Plot
-        #-------------------------------------------------------------------------
-        scatter_plot = alt.Chart(returns.reset_index()).mark_circle(size=60).encode(
-            x=alt.X(f"{ticker1}:Q", title=f"{ticker1} Daily Return", axis=alt.Axis(format=".2%")),
-            y=alt.Y(f"{ticker2}:Q", title=f"{ticker2} Daily Return", axis=alt.Axis(format=".2%")),
-            tooltip=["Date:T", f"{ticker1}:Q", f"{ticker2}:Q"]
-        ).properties(
-            title="Daily Returns Scatter Plot"
-        )
+        # Create a scatter plot
+        fig = px.scatter(returns, x=ticker1, y=ticker2, title=f'Scatter Plot of {ticker1} vs {ticker2} Returns')
         
-        # Show the plot in Streamlit
-        st.altair_chart(scatter_plot, use_container_width=True)
+        # Display the plot in Streamlit
+        st.plotly_chart(fig)
 
         # Display results
         # Create three columns

@@ -346,6 +346,8 @@ if st.session_state.pairs:
     # Cointegration
     # ------------------------------------
     with st.expander(f"Cointegration"):
+        st.subheader("When the 2 non-stationary time series move together in a way that they for a stationary linear combination in the long run, **COINTEGRATION** occurs.")
+        st.caption("Cointegration is a a statistical property.")
         st.write(f"{ticker2} = (OLS β) . {ticker1} + c + ε")
         st.caption("c = intercept, ε = residuals")
         st.caption("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
@@ -398,8 +400,21 @@ if st.session_state.pairs:
             col3.write(f"*:grey[✅ The spread is **stationary** (p-value: {adf_pvalue:.3f})] :grey[. It means the SPREAD has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
         else:
             col3.write(f"*❌ The spread is **non-stationary** (p-value: {adf_pvalue:.3f})*")
-    
-            
+
+
+
+        st.write(" ")
+        st.markdown("### Cointegration residuals")
+        #-------------------------------------------------------------------------
+        
+        # Compute the cointegration residuals
+        #-------------------------------------------------------------------------
+        df_coint = model.resid
+        
+        # Convert residuals to DataFrame for plotting
+        df_coint_plot = pd.DataFrame({"Time": returns.index, "Residuals": df_coint})
+        
+                
 
         
         

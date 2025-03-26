@@ -388,28 +388,28 @@ if st.session_state.pairs:
         # Display R-squared in the first column
         col1.metric(label="R-Squared", value=f"{r_squared:.3f}")
         # Use Streamlit's built-in color formatting
-        col1.markdown(f"*:grey[Relationship Strength: {ticker1} explains {r_squared*100:.0f}% of the variation in {ticker2}]*")
+        col1.caption(f"*:grey[Relationship Strength: {ticker1} explains {r_squared*100:.0f}% of the variation in {ticker2}]*")
         
         # Display OLS Beta in the second column
         col2.metric(label="OLS Beta", value=f"{beta:.3f}")
-        col2.write(f"*:grey[Effect of {ticker1} on {ticker2}: A 1-unit increase in {ticker1} is associated with a {beta:.2f} increase in {ticker2}.\n]*")
+        col2.caption(f"*:grey[Effect of {ticker1} on {ticker2}: A 1-unit increase in {ticker1} is associated with a {beta:.2f} increase in {ticker2}.\n]*")
         
         # Display ADF Test P-Value in the third column
         col3.metric(label="ADF P-Value", value=f"{adf_pvalue:.3f}")
         
         if adf_pvalue < 0.05:
-            col3.write(f"*✅ The spread is **STATIONARY**.*")
-            col3.write("*:grey[It means the spread has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
+            col3.caption(f"*✅ The spread is **STATIONARY**.*")
+            col3.caption("*:grey[It means the spread has a constant mean and variance over time, suggesting a stable relationship that is likely to revert to its average.]*")
         else:
-            col3.write(f"*❌ The spread is **non-stationary** (p-value: {adf_pvalue:.3f})*")
+            col3.caption(f"*❌ The spread is **non-stationary** (p-value: {adf_pvalue:.3f})*")
 
 
 
         st.write(" ")
         st.markdown("### Cointegration residuals")
         #-------------------------------------------------------------------------
-        st.write("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
-        st.write("*:grey[How far the spread is from its **\"fair value\"**]*")
+        st.caption("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
+        st.caption("*:grey[How far the spread is from its **\"fair value\"**]*")
         
         # Compute the cointegration residuals
         #-------------------------------------------------------------------------

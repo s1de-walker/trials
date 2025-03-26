@@ -407,7 +407,7 @@ if st.session_state.pairs:
 
         st.write(" ")
         st.markdown("""
-        ### <span style="color:#A55B4B">Cointegration residuals</span> = Deviations of actual values from predicted relationship
+        ##### <span style="color:#A55B4B">Cointegration residuals</span> = Deviations of actual values from predicted relationship
         """, unsafe_allow_html=True)
         #-------------------------------------------------------------------------
         st.caption("*How far the spread is from its **\"fair value\"***")

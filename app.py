@@ -350,7 +350,7 @@ if st.session_state.pairs:
         st.caption("Cointegration is a a statistical property. It occurs when 2 non-stationary time series move together in a way that they form a **stationary linear combination** in the long run.")
    
         st.caption("Linear combination:")
-        st.write(f"{ticker2} = (OLS β) . {ticker1} + c + ε")
+        st.write(f"{ticker2} returns = (OLS β) . {ticker1} returns + c + ε")
         st.caption("c = intercept, ε = residuals")
         
         # OLS Regression

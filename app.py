@@ -325,6 +325,16 @@ if st.session_state.pairs:
 
         fig_rb = px.line(rolling_beta, title=f"Rolling Beta of {ticker1} on {ticker2} ({window}-day window)", color_discrete_sequence=['#A55B4B'])
         fig_rb.update_layout(showlegend=False)  # Remove the legend
+
+        # Add horizontal line at y = 1
+        fig_rb.add_shape(
+            type="line",
+            x0=rolling_beta.index.min(),
+            x1=rolling_beta.index.max(),
+            y0=1,
+            y1=1,
+            line=dict(color="white", width=2, dash="dash")
+        )
+
         st.plotly_chart(fig_rb)
-            
             

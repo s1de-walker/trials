@@ -410,7 +410,7 @@ if st.session_state.pairs:
         st.markdown("### Cointegration residuals")
         #-------------------------------------------------------------------------
         st.write("The residuals in OLS regression measures how much the actual values deviate from the predicted relationship.")
-        st.write("How far the spread is from its **\"fair value\"**")
+        st.write("*How far the spread is from its **\"fair value\"***")
         
         # Compute the cointegration residuals
         #-------------------------------------------------------------------------

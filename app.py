@@ -307,5 +307,19 @@ if st.session_state.pairs:
         #st.dataframe(returns)
         returns_rb = returns[[ticker1, ticker2]]
         st.dataframe(returns_rb)
+
+        col1, col2 = st.columns(2)
+        # Proceed with your number input
+        with col1:
+            window = st.number_input("Rolling Window (Days):", min_value=1, max_value=date_range_days, value=10)
+
+        # Calculate rolling covariance and variance
+        rolling_cov = returns_rb[ticker1].rolling(window).cov(returns_rb[ticker2])
+        rolling_var = returns_rb[ticker2].rolling(window).var()
+
+        # Calculate rolling beta
+        rolling_beta = rolling_cov / rolling_var
+
+        st.dataframe(rolling_beta)
             
             

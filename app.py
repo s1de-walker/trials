@@ -278,10 +278,10 @@ if st.session_state.pairs:
             fig_volatility_ratio_gap.update_traces(line=dict(color='#A55B4B'))  
 
             # Add horizontal lines for percentiles and mean
-            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey", annotation_text="Upper Threshold", annotation_position="bottom left")
-            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="grey", annotation_text="Lower Threshold", annotation_position="top left")
+            fig_volatility_ratio_gap.add_hline(y=upper_bound2, line_dash="solid", line_color="grey")
+            fig_volatility_ratio_gap.add_hline(y=lower_bound2, line_dash="solid", line_color="grey")
             mean_value = volatility_ratio_gap_df['Volatility Ratio Gap'].mean()
-            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey", annotation_text="Mean", annotation_position="top left")
+            fig_volatility_ratio_gap.add_hline(y=mean_value, line_dash="dot", line_color="grey")
                 
         
             # Update layout for legend position and other customizations
@@ -420,6 +420,13 @@ if st.session_state.pairs:
         # Convert residuals to DataFrame for plotting
         df_coint_plot = pd.DataFrame({"Time": returns.index, "Residuals": df_coint})
 
+        # User input for percentile value
+        col1, col2, col3, col4, col5 = st.columns([2, 3, 1, 2, 3])
+        percentile3 = col1.number_input("Select Percentile:", min_value=50.00, max_value=99.99, value=90.00, format="%.2f", key="percentile_input_cr")
+
+        lower_bound_cr = np.percentile(df_coint_plot['Residuals'], 100-percentile3)
+        upper_bound_cr = np.percentile(df_coint_plot['Residuals'], percentile3)
+
         # Plot the residuals with custom color
         fig_cr = px.line(df_coint_plot, x="Time", y="Residuals", title="Cointegration Residuals", color_discrete_sequence=['#A55B4B'])
 
@@ -430,8 +437,13 @@ if st.session_state.pairs:
             x1=df_coint_plot["Time"].max(),
             y0=0,
             y1=0,
-            line=dict(color="grey", width=4, dash="solid")
+            line=dict(color="grey", width=2, dash="solid")
         )
+
+
+         # Add horizontal lines for percentiles and mean
+        fig_cr.add_hline(y=upper_bound3, line_dash="solid", line_color="grey")
+        fig_cr.add_hline(y=lower_bound3, line_dash="solid", line_color="grey")
         
         # Display the plot in Streamlit
         st.plotly_chart(fig_cr)

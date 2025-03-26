@@ -319,6 +319,7 @@ if st.session_state.pairs:
 
         # Calculate rolling beta
         rolling_beta = rolling_cov / rolling_var
+        rolling_beta = rolling_beta.dropna()
 
         st.dataframe(rolling_beta)
             
